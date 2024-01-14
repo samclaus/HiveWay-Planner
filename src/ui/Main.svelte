@@ -1,6 +1,6 @@
 <script lang="ts">
     import { decode, encode } from "msgpack-ts";
-    import type { TransientBackendConn } from "src/backend/transient-conn";
+    import type { TransientBackendConn } from "@backend/transient-conn";
     import { logout } from "../session";
     import TextField from "./widgets/TextField.svelte";
 
@@ -62,16 +62,16 @@
 </script>
 
 <main>
-    <div class="ed-toolbar">
+    <div class="hw-toolbar">
         <span> Dashboard </span>
-        <div class="ed-flex-1" />
+        <div class="flex-grow" />
         <span>
             Logged in as {user.username} (ID: {user.id.substring(0, 6)})
             {#if firstLogin}
                 (NEWLY REGISTERED!)
             {/if}
         </span>
-        <div class="ed-flex-1" />
+        <div class="flex-grow" />
         <button class="toolbar-button" on:click={logout}> Logout </button>
     </div>
     <h2>Request/Response Debugging</h2>

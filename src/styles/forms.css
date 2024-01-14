@@ -1,0 +1,80 @@
+/* 
+    This file contains general styles for all forms (for user input)
+    across the application. Only styles that are widely applicable
+    should be in here, while special case CSS should belong to
+    individual components that need to tweak the regular appearance.
+*/
+
+form {
+    padding: 0 24px 36px;
+    contain: layout;
+}
+
+.form-fields {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    column-gap: 12px;
+    row-gap: 36px;
+}
+
+label {
+    display: block;
+    min-width: 320px;
+    flex: 1 1 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+input, textarea {
+    display: block;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 48px;
+    border: 2px solid #777;
+    border-radius: 8px;
+    background-color: #e9e9e9;
+    padding: 8px 12px;
+    font-weight: 400;
+    outline: none;
+    transition: border-color .2s ease-in-out;
+    caret-color: #4CAF50;
+}
+
+input[type="checkbox"], input[type="radio"] {
+    display: initial;
+    width: unset;
+    min-width: unset;
+}
+
+::placeholder {
+    color: inherit;
+    opacity: 0.5;
+}
+
+input:focus, textarea:focus {
+    border-color: #4CAF50;
+}
+
+[type="submit"] {
+    position: relative;
+    border: 2px solid #333;
+    border-radius: 8px;
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    max-width: 480px;
+    background-color: #455A64;
+    color: #eee;
+    cursor: pointer;
+    font-size: 1.5rem;
+    outline: none;
+    margin: 0 auto;
+}
+
+[type="submit"]:hover, [type="submit"]:focus {
+    border-color: #00E676;
+    border-radius: 6px;
+    color: #00E676;
+}
