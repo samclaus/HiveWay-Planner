@@ -7,16 +7,15 @@ import type { BackendTransport, StreamListener } from "./transport";
 import type { UserInfo } from "./user";
 
 export interface LoginRequest {
-    register: false;
     username: string;
     password: string;
 }
 
 export interface RegistrationRequest {
-    register: true;
+    registration_token: string;
     username: string;
     password: string;
-    email: string;
+    email?: string | undefined;
 
     // TODO: more required fields (like registration token, etc.)
 }

@@ -5,6 +5,7 @@
 	let register = false;
 	let username = "";
 	let password = "";
+	let regToken = "";
 	let email = "";
 	let errText = "";
 
@@ -20,12 +21,11 @@
 
 	function handleFormSubmit(): void {
 		authenticate(register ? {
-			register: true,
+			registration_token: regToken,
 			username,
 			password,
 			email,
 		} : {
-			register: false,
 			username,
 			password,
 		});
@@ -67,19 +67,35 @@
 			account
 		</h2>
 
+		{#if register}
+			<p>
+				You do not need to provide an email to create an account, but it
+				may be desirable for communication within your organization. The
+				username restrictions are quite lax so you may also use an email
+				address as your username if it makes things easier to keep track
+				of, but the system will not treat the username field any
+				differently if you do so.
+			</p>
+			<p>
+				You <strong>must</strong> provide a valid registration token. If
+				you do not have one, contact a system administrator.
+			</p>
+		{/if}
+
 		<div class="form-fields">
 
 			<TextField label="Username" required bind:value={username} autofocus />
 			<TextField label="Password" required bind:value={password} />
 
 			{#if register}
-				<TextField label="Email" required bind:value={email} />
+				<TextField label="Registration Token" required bind:value={regToken} />
+				<TextField label="Email" bind:value={email} />
 			{/if}
 
 		</div>
 
 		<button type="submit" disabled={authenticating}>
-			Login
+			{register ? 'Register' : 'Login'}
 		</button>
 
 		<button type="button" class="forgot-password">

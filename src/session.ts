@@ -32,7 +32,7 @@ export function authenticate(auth: AuthRequest): void {
         return;
     }
 
-    const firstLogin = auth.register;
+    const firstLogin = 'registration_token' in auth;
 
     sessionMut.setValue({ state: "authenticating" });
 
