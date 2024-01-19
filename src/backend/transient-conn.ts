@@ -206,6 +206,8 @@ function safeExtractError(payload: Uint8Array): BackendError {
     }
 }
 
+const utf8Encoder = new TextEncoder();
+
 /**
  * Transient websocket-based connection to a HiveWay backend/server. Once the underlying
  * websocket closes, the instance is no longer usable and must be replaced with an entirely
@@ -381,14 +383,26 @@ export class TransientBackendConn implements BackendTransport {
      * for the previous dispatch to finish before dispatching the message.
      */
     private dispatchRequest(type: string, id: number, payload: Uint8Array): void {
-        const encType = encode(type);
-        const message = new Uint8Array(5 + encType.length + payload.length);
+        const typeUTF8 = utf8Encoder.encode(type);
+
+        if (typeUTF8.length > 255) {
+            // TODO: remove this whole check and just use msgpack-ts encode() function
+            // for the type once I implement things properly on the server
+            throw new Error(
+                `cannot encode request type "${type}" because its UTF-8 length ` +
+                "exceeds 255 bytes and the HiveWay server currently only " +
+                "supports MessagePack str 8 encoding for the type"
+            );
+        }
+
+        const message = new Uint8Array(7 + typeUTF8.length + payload.length);
         const dataView = new DataView(message.buffer);
         
         message[0] = MessageType.RequestReply;
         dataView.setUint32(1, id);
-        message.set(encType, 5);
-        message.set(payload, 5 + encType.length);
+        message.set([0xd9, typeUTF8.length], 5); // str 8 header
+        message.set(typeUTF8, 7); // now the actual contents of the type string
+        message.set(payload, 7 + typeUTF8.length);
 
         this.socket.send(message);
     }

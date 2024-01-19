@@ -10,11 +10,19 @@
     $: user = conn.user;
 
     let requestType = "user:list";
-    let requestBody = "";
+    let requestJSON = "";
     let responseText = "";
 
+    function parseRequest(): any {
+        try {
+            return JSON.parse(requestJSON);
+        } catch {
+            return requestJSON;
+        }
+    }
+
     function sendRequest(): void {
-        conn.send(requestType, encode(requestBody)).then(
+        conn.send(requestType, encode(parseRequest())).then(
             (response) => {
                 responseText =
                     "" + JSON.stringify(decode(response), undefined, 4);
@@ -30,6 +38,7 @@
     }
 
     function benchmark(): void {
+        const request = parseRequest();
         const start = performance.now();
         const promises: Promise<unknown>[] = [];
         const results: [unknown, number][] = [];
@@ -37,7 +46,7 @@
         for (let i = 0; i < 10_000; ++i) {
             const reqStart = performance.now();
             promises.push(
-                conn.send(requestType, encode(requestBody)).then(
+                conn.send(requestType, encode(request)).then(
                     res => {
                         const decoded = decode(res);
                         results.push([decoded, performance.now() - reqStart]);
@@ -78,7 +87,7 @@
     <form on:submit|preventDefault={sendRequest}>
         <h3>Request</h3>
         <TextField label="Request Type" bind:value={requestType} autofocus />
-        <TextField label="Request Body" bind:value={requestBody} />
+        <TextField label="Request JSON" bind:value={requestJSON} />
         <button type="submit">Send request</button>
         <button type="button" on:click={benchmark}>Benchmark</button>
     </form>
