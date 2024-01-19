@@ -62,7 +62,7 @@
 			{#if register}
 				Register a new
 			{:else}
-				Log-in to an existing
+				Log in to an existing
 			{/if}
 			account
 		</h2>
