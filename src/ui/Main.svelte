@@ -23,11 +23,14 @@
 
     function sendRequest(): void {
         conn.send(requestType, encode(parseRequest())).then(
-            (response) => {
-                responseText =
-                    "" + JSON.stringify(decode(response), undefined, 4);
+            res => {
+                responseText = "";
+                
+                if (res.length) {
+                    responseText += JSON.stringify(decode(res), undefined, 4);
+                }
             },
-            (err) => {
+            err => {
                 if (err instanceof Error) {
                     responseText = err.message;
                 } else {
