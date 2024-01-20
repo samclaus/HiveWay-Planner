@@ -3,6 +3,8 @@
     import type { TransientBackendConn } from "@backend/transient-conn";
     import { logout } from "../session";
     import TextField from "./widgets/TextField.svelte";
+    import ModalContainer, { show } from "./widgets/ModalContainer.svelte";
+    import RegTokenCreate from "./modals/RegTokenCreate.svelte";
 
     export let conn: TransientBackendConn;
     export let firstLogin: boolean;
@@ -84,7 +86,8 @@
             {/if}
         </span>
         <div class="flex-grow" />
-        <button class="toolbar-button" on:click={logout}> Logout </button>
+        <button class="toolbar-button" on:click={() => show(RegTokenCreate, { conn })}>Create Registration Token</button>
+        <button class="toolbar-button" on:click={logout}>Logout</button>
     </div>
     <h2>Request/Response Debugging</h2>
     <form on:submit|preventDefault={sendRequest}>
@@ -99,6 +102,8 @@
         <pre>{responseText}</pre>
     </section>
 </main>
+
+<ModalContainer />
 
 <style>
     .toolbar-button {
