@@ -5,11 +5,13 @@
     import Auth from "./Auth.svelte";
     import Debug from "./pages/Debug.svelte";
     import RegTokens from "./pages/RegTokens.svelte";
+    import Users from "./pages/Users.svelte";
     import ModalContainer from "./widgets/ModalContainer.svelte";
 
     const routes = {
         '/': Debug,
         '/registration-tokens': RegTokens,
+        '/users': Users,
     };
 </script>
 
@@ -22,6 +24,9 @@
             </a>
             <a href="#/registration-tokens" use:active={"/registration-tokens/*"}>
                 Registration Tokens
+            </a>
+            <a href="#/users" use:active={"/users/*"}>
+                Users
             </a>
             <div class="flex-grow" />
             <button class="main-menu" on:click={logout}>

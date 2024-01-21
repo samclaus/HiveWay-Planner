@@ -1,38 +1,29 @@
 <script lang="ts">
-    import { REGISTRATION_TOKENS, deleteRegistrationToken } from "../../state/registration-tokens";
-    import RegTokenCreate from "../modals/RegTokenCreate.svelte";
-    import Icon from "../widgets/Icon.svelte";
+    import { USERS, deleteUser } from "../../state/users";
     import IconButton from "../widgets/IconButton.svelte";
-    import { show } from "../widgets/ModalContainer.svelte";
 
-    const status$ = REGISTRATION_TOKENS.status$;
+    const status$ = USERS.status$;
 </script>
 
-<h1>Registration Tokens</h1>
+<h1>Users</h1>
 
 {#if $status$.refreshError}
     <p class="legible-width">{$status$.refreshError.message}</p>
 {/if}
 
 <ul>
-    <li class="new">
-        <button on:click={() => show(RegTokenCreate)}>
-            <Icon name="plus" size={72} />
-            New Token
-        </button>
-    </li>
-    {#each ($REGISTRATION_TOKENS || []) as token (token.id)}
+    {#each ($USERS || []) as user (user.id)}
     <li>
-        <h3>{token.id}</h3>
-        <p>New account will be {token.role ? 'an admin' : 'a normal user'}.</p>
-        <p>Created at {new Date(token.created_at)}</p>
-        <p>Created by {token.created_by}</p>
-        <p>{token.notes}</p>
+        <h3>{user.name}</h3>
+        <p>{user.role ? 'Admin' : 'Normal User'}.</p>
+        <p>{user.email || '(No email specified.)'}</p>
+        <p>{user.username}</p>
+        <p>{user.id}</p>
         <IconButton
             label="Delete"
             icon="delete"
             color="warn"
-            on:click={() => deleteRegistrationToken(token.id)} />
+            on:click={() => deleteUser(user.id)} />
     </li>
     {/each}
 </ul>
