@@ -3,6 +3,7 @@
     import { cancel, complete } from '../widgets/ModalContainer.svelte';
     import TextField from '../widgets/TextField.svelte';
 
+    let name = '';
     let id = '';
     let admin = false;
     let notes = '';
@@ -10,6 +11,7 @@
     function submit(): void {
         createRegistrationToken({
             id,
+            name,
             role: admin ? 1 : 0,
             notes,
         });
@@ -29,11 +31,19 @@
     <div class="form-fields">
 
         <TextField
+            label="Name"
+            bind:value={name}
+            required
+            maxlength={100}
+            placeholder="The person you are onboarding, e.g., John Doe"
+            autofocus />
+
+        <TextField
             label="Token"
             bind:value={id}
             required
             maxlength={100}
-            autofocus />
+            placeholder="Something memorable, like 'zebra-unicorn-3'" />
 
         <label>
             <input type="checkbox" bind:value={admin}>

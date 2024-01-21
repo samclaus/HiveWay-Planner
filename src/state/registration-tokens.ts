@@ -7,6 +7,7 @@ export interface RegistrationTokenSpec {
 	id: string;
 	// Role is the role that will be granted to the user who registers with the token.
 	role: number;
+	name: string;
 	// Notes is just generic text entered by the admin that created the
 	// token. Useful for mentioning who the token is intended  for.
 	notes: string;

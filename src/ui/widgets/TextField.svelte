@@ -12,6 +12,7 @@
         type="text"
         {required}
         {maxlength}
+        {placeholder}
         bind:this={inputEl}
         bind:value>
 
@@ -28,6 +29,7 @@
     export let value: string;
     export let required = false;
     export let maxlength: number | undefined = undefined;
+    export let placeholder: string | undefined = undefined;
     export let autofocus = false;
 
     const inputID = `hw-textfield-${counter++}`;

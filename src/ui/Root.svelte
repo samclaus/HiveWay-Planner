@@ -25,7 +25,7 @@
             </a>
             <div class="flex-grow" />
             <button class="main-menu" on:click={logout}>
-                {user.username} - click to log out
+                {user.name} - click to log out
             </button>
         </nav>
         <main>
