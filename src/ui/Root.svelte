@@ -4,14 +4,16 @@
     import { SESSION$, logout } from "../state/session";
     import Auth from "./Auth.svelte";
     import Debug from "./pages/Debug.svelte";
+    import Map from "./pages/Map.svelte";
     import RegTokens from "./pages/RegTokens.svelte";
     import Users from "./pages/Users.svelte";
     import ModalContainer from "./widgets/ModalContainer.svelte";
 
     const routes = {
-        '/': Debug,
+        '/': Map,
         '/registration-tokens': RegTokens,
         '/users': Users,
+        '/debug': Debug,
     };
 </script>
 
@@ -20,13 +22,16 @@
     <div class="isolate">
         <nav>
             <a href="#/" use:active={"/"}>
-                Home
+                Map
+            </a>
+            <a href="#/users" use:active={"/users/*"}>
+                Users
             </a>
             <a href="#/registration-tokens" use:active={"/registration-tokens/*"}>
                 Registration Tokens
             </a>
-            <a href="#/users" use:active={"/users/*"}>
-                Users
+            <a href="#/debug" use:active={"/debug/*"}>
+                Debug
             </a>
             <div class="flex-grow" />
             <button class="main-menu" on:click={logout}>
