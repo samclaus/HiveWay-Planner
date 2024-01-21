@@ -57,24 +57,26 @@ li {
 }
 
 button {
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
     background-color: transparent;
+    border-radius: 8px;
+    border: 2px solid #333;
+    padding: 8px 12px;
+    font-size: 1.5rem;
+    font-weight: 500;
     cursor: pointer;
+    outline: none;
 }
 
-button:hover {
-    border-color: #646cff;
+button:hover, button:focus {
+    background-color: rgba(0, 0, 0, .12);
 }
 
-.hw-toolbar {
-    min-height: 48px;
+button.filled {
+    background-color: #455A64;
+    color: #eee;
+}
 
-    padding: 0 12px;
-
-    display: flex;
-    align-items: center;
+button.filled:hover, button.filled:focus {
+    border-color: #00E676;
+    color: #00E676;
 }

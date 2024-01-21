@@ -94,7 +94,7 @@
 
 		</div>
 
-		<button type="submit" disabled={authenticating}>
+		<button type="submit" class="filled" disabled={authenticating}>
 			{register ? 'Register' : 'Login'}
 		</button>
 
@@ -151,14 +151,15 @@
 
 	[type="submit"] {
 		margin: 2em auto 1em;
+		display: block;
+		width: 100%;
+		max-width: 480px;
 	}
 
 	.forgot-password {
-		min-width: 100%;
-		border: none;
-		display: block;
 		margin: 0 auto;
-		text-align: center;
+		display: block;
+		border: none;
 	}
 
 	.forgot-password:hover {

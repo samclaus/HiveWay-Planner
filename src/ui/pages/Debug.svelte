@@ -1,10 +1,14 @@
 <h2>Request/Response Debugging</h2>
 <form on:submit|preventDefault={sendRequest}>
     <h3>Request</h3>
-    <TextField label="Request Type" bind:value={requestType} autofocus />
-    <TextField label="Request JSON" bind:value={requestJSON} />
-    <button type="submit">Send request</button>
-    <button type="button" on:click={benchmark}>Benchmark</button>
+    <div class="form-fields">
+        <TextField label="Request Type" bind:value={requestType} autofocus />
+        <TextField label="Request JSON" bind:value={requestJSON} />
+    </div>
+    <div class="form-actions">
+        <button type="button" on:click={benchmark}>Benchmark</button>
+        <button type="submit" class="filled">Send request</button>
+    </div>
 </form>
 <section class="response-container">
     <h3>Response</h3>
@@ -87,10 +91,9 @@ sendRequest();
 
     form,
     .response-container {
-        width: 50%;
-        min-width: 400px;
-
         margin: 100px auto;
+        width: 100%;
+        max-width: 85ch;
     }
 
     pre {

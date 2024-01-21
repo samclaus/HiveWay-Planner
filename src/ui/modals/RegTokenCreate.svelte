@@ -20,22 +20,32 @@
 
     <h2>Create a new registration token</h2>
 
-    <TextField
-        label="Token"
-        bind:value={id}
-        required
-        maxlength={100}
-        autofocus />
+    <p>
+        Once you create a registration token, you must give it to
+        the person you are onboarding into the system so they can
+        register.
+    </p>
 
-    <label>
-        <input type="checkbox" bind:value={admin}>
-        This user should be an administrator
-    </label>
+    <div class="form-fields">
 
-    <label>
-        Notes
-        <textarea bind:value={notes}></textarea>
-    </label>
+        <TextField
+            label="Token"
+            bind:value={id}
+            required
+            maxlength={100}
+            autofocus />
+
+        <label>
+            <input type="checkbox" bind:value={admin}>
+            This user should be an administrator
+        </label>
+
+        <label>
+            Notes
+            <textarea bind:value={notes}></textarea>
+        </label>
+
+    </div>
 
     <div class="form-actions">
 
@@ -43,7 +53,7 @@
             Cancel
         </button>
 
-        <button type="submit">
+        <button type="submit" class="filled">
             Create Token
         </button>
 

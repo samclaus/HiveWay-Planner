@@ -32,16 +32,21 @@
     button {
         padding: 8px;
         margin: 12px;
-        width: 40px;
-        height: 40px;
+        width: 42px;
+        height: 42px;
         contain: strict;
         border-radius: 8px;
+        border: 1px solid transparent;
         cursor: pointer;
         color: #333;
     }
 
     button:hover {
         background-color: rgba(0, 0, 0, .12);
+    }
+
+    button:focus-visible {
+        border-color: #333;
     }
 
     svg {

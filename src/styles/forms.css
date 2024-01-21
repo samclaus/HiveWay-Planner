@@ -42,9 +42,13 @@ input, textarea {
 }
 
 input[type="checkbox"], input[type="radio"] {
-    display: initial;
+    display: inline-block;
     width: unset;
     min-width: unset;
+    min-height: 1em;
+    height: 1em;
+    width: 1em;
+    margin-right: 12px;
 }
 
 ::placeholder {
@@ -57,29 +61,9 @@ input:focus, textarea:focus {
 }
 
 .form-actions {
+    margin-top: 36px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-}
-
-[type="submit"] {
-    position: relative;
-    border: 2px solid #333;
-    border-radius: 8px;
-    display: block;
-    width: 100%;
-    padding: 8px 0;
-    max-width: 480px;
-    background-color: #455A64;
-    color: #eee;
-    cursor: pointer;
-    font-size: 1.5rem;
-    outline: none;
-    margin: 0 auto;
-}
-
-[type="submit"]:hover, [type="submit"]:focus {
-    border-color: #00E676;
-    border-radius: 6px;
-    color: #00E676;
+    gap: 12px;
 }

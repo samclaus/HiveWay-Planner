@@ -16,7 +16,7 @@
 {#if $SESSION$.state === "logged-in"}
     {@const user = $SESSION$.conn.user}
     <div class="isolate">
-        <nav class="hw-toolbar">
+        <nav>
             <a href="#/" use:active={"/"}>
                 Home
             </a>
@@ -55,6 +55,10 @@
     }
 
     nav {
+        display: flex;
+        align-items: center;
+        padding: 8px 12px;
+        min-height: 48px;
         background-color: #fff;
         z-index: 1;
         position: sticky;
