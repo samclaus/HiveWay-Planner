@@ -15,6 +15,8 @@ export interface RegistrationTokenSpec {
 // RegistrationTokenInfo describes a registration token. Tokens are created by admins
 // to permit new users to register. Every token is single-use.
 export interface RegistrationTokenInfo extends RegistrationTokenSpec {
+	// CreatedAt is the timestamp from when the token was created, in Unix milliseconds.
+	created_at: number;
 	// CreatedBy is the ID of the admin that created the token.
 	created_by: string;
 }

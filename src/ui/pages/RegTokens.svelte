@@ -11,7 +11,7 @@
 <h1>Registration Tokens</h1>
 
 {#if $status$.refreshError}
-    <div>{$status$.refreshError.message}</div>
+    <p class="legible-width">{$status$.refreshError.message}</p>
 {/if}
 
 <ul>
@@ -23,7 +23,10 @@
     </li>
     {#each ($REGISTRATION_TOKENS || []) as token}
     <li>
-        <h3>{token.id} ({token.role ? 'Admin' : 'Normal User'})</h3>
+        <h3>{token.id}</h3>
+        <p>New account will be {token.role ? 'an admin' : 'a normal user'}.</p>
+        <p>Created at {new Date(token.created_at)}</p>
+        <p>Created by {token.created_by}</p>
         <p>{token.notes}</p>
         <IconButton
             label="Delete"
@@ -42,7 +45,7 @@
         display: grid;
         gap: 16px;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        grid-auto-rows: 400px;
+        grid-auto-rows: min-content;
         /* grid-auto-flow: column; */
         place-items: stretch;
     }
@@ -59,6 +62,7 @@
         position: relative;
         border: 2px dashed #777;
         background-color: transparent;
+        min-height: 200px;
     }
 
     li.new > button {
