@@ -1,6 +1,6 @@
-import { removeFirstOccurrence } from "../array-util";
-import { reuseInflight, reuseInflightKeyed } from "../async-util";
-import { doNothing } from "../do-nothing";
+import { removeFirstOccurrence } from "../lib/array-util";
+import { reuseInflight, reuseInflightKeyed } from "../lib/async-util";
+import { doNothing } from "../lib/do-nothing";
 import type { RxAbstractCache as AbstractCache, RxCacheItemStatus as ItemStatus, RxCacheStatusCallback as StatusCallback } from "./_cache";
 import { RxRemoteSet as RemoteSet, RxMutableSetStatus, type RxRemoteSetStatus } from "./_remote-set";
 import { RxSetEvent as SetEvent, type RxSetDataCallback as SetDataCallback, type RxSetEventInfo as SetEventInfo } from "./_set";
@@ -266,7 +266,7 @@ export class RxUniversalSet<Item extends HasID, RefreshError = unknown>
         };
     }
 
-    protected $set(item: Item): void {
+    $set(item: Item): void {
         const id = item.id;
         const prev = this.itemsByID.get(id);
 

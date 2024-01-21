@@ -1,8 +1,8 @@
 import { decode, encode } from "msgpack-ts";
-import { Deferred } from "../async-util";
 import { hexEncode } from "../encoding";
+import { Deferred } from "../lib/async-util";
+import { WEBSOCKET_CLOSE_NORMAL, openWebsocket, readBinaryMessage } from "../lib/websocket-util";
 import { rx } from "../rx";
-import { openWebsocket, readBinaryMessage, WEBSOCKET_CLOSE_NORMAL } from "../websocket-util";
 import type { BackendTransport, StreamListener } from "./transport";
 import type { UserInfo } from "./user";
 
@@ -207,6 +207,7 @@ function safeExtractError(payload: Uint8Array): BackendError {
 }
 
 const utf8Encoder = new TextEncoder();
+const EMPTY_PAYLOAD = new Uint8Array(0);
 
 /**
  * Transient websocket-based connection to a HiveWay backend/server. Once the underlying
@@ -382,7 +383,7 @@ export class TransientBackendConn implements BackendTransport {
      * Send a message to the server. This method respects the dispatch chain and waits
      * for the previous dispatch to finish before dispatching the message.
      */
-    private dispatchRequest(type: string, id: number, payload: Uint8Array): void {
+    private dispatchRequest(type: string, id: number, payload = EMPTY_PAYLOAD): void {
         const typeUTF8 = utf8Encoder.encode(type);
 
         if (typeUTF8.length > 255) {
@@ -414,7 +415,7 @@ export class TransientBackendConn implements BackendTransport {
      * error; it will be rejected otherwise. If a stream listener is provided,
      * it will be registered using the generated request ID as the stream ID.
      */
-    async send(type: string, payload: Uint8Array): Promise<Uint8Array> {
+    async send(type: string, payload?: Uint8Array): Promise<Uint8Array> {
         if (!this.open) {
             throw new Error("connection is closed");
         }
@@ -439,7 +440,7 @@ export class TransientBackendConn implements BackendTransport {
      * 
      * @throws If message dispatch fails because the websocket is closed, and vice versa.
      */
-    async sendIgnoreReply(type: string, payload: Uint8Array): Promise<void> {
+    async sendIgnoreReply(type: string, payload?: Uint8Array): Promise<void> {
         if (!this.open) {
             throw new Error("connection is closed");
         }

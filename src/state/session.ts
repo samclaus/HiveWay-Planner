@@ -1,5 +1,5 @@
-import { TransientBackendConn, type AuthRequest } from "./backend/transient-conn";
-import { rx } from "./rx";
+import { TransientBackendConn, type AuthRequest } from "../backend/transient-conn";
+import { rx } from "../rx";
 
 export type SessionState = {
     state: "logged-out";
@@ -59,6 +59,28 @@ export function authenticate(auth: AuthRequest): void {
             sessionMut.setValue({ state: "logged-out", authErr: err });
         },
     );
+}
+
+export async function request(type: string, payload?: Uint8Array): Promise<Uint8Array> {
+    const current = sessionMut.snapshot;
+
+    if (current.state !== "logged-in") {
+        // TODO: queue request for when we reconnect, etc? Depending on circumstances
+        throw new Error("not logged in");
+    }
+
+    return current.conn.send(type, payload);
+}
+
+export async function requestIgnoreReply(type: string, payload?: Uint8Array): Promise<void> {
+    const current = sessionMut.snapshot;
+
+    if (current.state !== "logged-in") {
+        // TODO: queue request for when we reconnect, etc? Depending on circumstances
+        throw new Error("not logged in");
+    }
+
+    await current.conn.sendIgnoreReply(type, payload);
 }
 
 export function logout(): void {

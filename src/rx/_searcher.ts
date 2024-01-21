@@ -1,4 +1,4 @@
-import { doNothing } from "../do-nothing";
+import { doNothing } from "../lib/do-nothing";
 import { RxSet, RxSetEvent, type RxSetDataCallback } from "./_set";
 import { removeUniqueID, replaceUniqueID, type RxHasID, type RxUnsubscribeFn } from "./_util";
 

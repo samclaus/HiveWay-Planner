@@ -1,4 +1,4 @@
-import { doNothing } from "../do-nothing";
+import { doNothing } from "../lib/do-nothing";
 import type { RxUnsubscribeFn } from "./_util";
 
 /**

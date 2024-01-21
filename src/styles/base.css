@@ -64,9 +64,6 @@ button {
     font-family: inherit;
     background-color: transparent;
     cursor: pointer;
-    transition:
-        border-color 0.25s,
-        transform 0.25s;
 }
 
 button:hover {

@@ -3,10 +3,8 @@ import "./styles/reset.css";
 import "./styles/base.css";
 import "./styles/forms.css";
 import "./styles/util.css";
-import App from "./App.svelte";
+import Root from "./ui/Root.svelte";
 
-const app = new App({
+export default new Root({
 	target: document.body
 });
-
-export default app;

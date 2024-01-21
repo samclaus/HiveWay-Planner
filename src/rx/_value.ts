@@ -1,4 +1,4 @@
-import { removeFirstOccurrence } from "../array-util";
+import { removeFirstOccurrence } from "../lib/array-util";
 import type { RxDataCallback as DataCallback, RxUnsubscribeFn as UnsubscribeFn } from "./_util";
 
 /**

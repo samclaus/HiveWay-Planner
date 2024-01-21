@@ -1,21 +1,18 @@
 <script lang="ts">
-    import type { TransientBackendConn } from "@backend/transient-conn";
-    import { complete } from '../widgets/ModalContainer.svelte';
+    import { createRegistrationToken } from "../../state/registration-tokens";
+    import { cancel, complete } from '../widgets/ModalContainer.svelte';
     import TextField from '../widgets/TextField.svelte';
-    import { encode } from "msgpack-ts";
-
-    export let conn: TransientBackendConn;
 
     let id = '';
     let admin = false;
     let notes = '';
 
     function submit(): void {
-        conn.sendIgnoreReply('registration_token:create', encode({
+        createRegistrationToken({
             id,
             role: admin ? 1 : 0,
             notes,
-        }));
+        });
         complete();
     }
 </script>
@@ -23,7 +20,12 @@
 
     <h2>Create a new registration token</h2>
 
-    <TextField label="Token" bind:value={id} required maxlength={100} />
+    <TextField
+        label="Token"
+        bind:value={id}
+        required
+        maxlength={100}
+        autofocus />
 
     <label>
         <input type="checkbox" bind:value={admin}>
@@ -35,8 +37,16 @@
         <textarea bind:value={notes}></textarea>
     </label>
 
-    <button type="submit">
-        Create Token
-    </button>
+    <div class="form-actions">
+
+        <button type="button" on:click={cancel}>
+            Cancel
+        </button>
+
+        <button type="submit">
+            Create Token
+        </button>
+
+    </div>
 
 </form>

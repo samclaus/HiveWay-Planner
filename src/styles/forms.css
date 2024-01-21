@@ -38,7 +38,6 @@ input, textarea {
     padding: 8px 12px;
     font-weight: 400;
     outline: none;
-    transition: border-color .2s ease-in-out;
     caret-color: #4CAF50;
 }
 
@@ -55,6 +54,12 @@ input[type="checkbox"], input[type="radio"] {
 
 input:focus, textarea:focus {
     border-color: #4CAF50;
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 [type="submit"] {

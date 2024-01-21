@@ -1,6 +1,6 @@
 <script lang="ts">
+	import { authenticate, SESSION$ } from "../state/session";
 	import TextField from "./widgets/TextField.svelte";
-	import { authenticate, SESSION$ } from "../session";
 
 	let register = false;
 	let username = "";

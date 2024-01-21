@@ -1,5 +1,5 @@
-import { Deferred, reuseInflightKeyed } from "../async-util";
-import { doNothing } from "../do-nothing";
+import { Deferred, reuseInflightKeyed } from "../lib/async-util";
+import { doNothing } from "../lib/do-nothing";
 import type { RxHasID, RxUnsubscribeFn } from "./_util";
 
 interface ItemStatus<T> {
@@ -287,7 +287,7 @@ abstract class AutofetchingCache<Item extends RxHasID> implements AbstractCache<
                 try {
                     if (predicate(item)) {
                         cleanup();
-                        d.resolve(item);
+                        d.resolve(item!); // TODO: is this a bug?
                     } else {
                         // TODO: keep polling
                     }

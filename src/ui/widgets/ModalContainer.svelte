@@ -2,7 +2,7 @@
     import { cubicOut } from "svelte/easing";
     import { get, writable } from "svelte/store";
     import { type TransitionConfig } from "svelte/transition";
-    import { Deferred } from "../../async-util";
+    import { Deferred } from "../../lib/async-util";
 
     /**
      * Indicates that the user canceled a modal. This could be by clicking
@@ -21,7 +21,7 @@
 
     const current = writable<Modal | undefined>(undefined);
 
-    export function show<T>(component: any, params: any): Promise<T> {
+    export function show<T>(component: any, params?: any): Promise<T> {
         // Cancel the current modal, if any
         cancel();
 

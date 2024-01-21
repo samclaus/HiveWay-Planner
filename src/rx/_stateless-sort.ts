@@ -1,6 +1,6 @@
-import type { Comparator } from "../sorting";
+import type { Comparator } from "../lib/sorting";
 import { RxSet, RxSetEvent } from "./_set";
-import { removeUniqueID, replaceUniqueID, RxDataCallback, type RxHasID, type RxUnsubscribeFn } from "./_util";
+import { RxDataCallback, removeUniqueID, replaceUniqueID, type RxHasID, type RxUnsubscribeFn } from "./_util";
 import type { RxValue } from "./_value";
 
 /**
