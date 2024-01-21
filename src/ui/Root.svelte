@@ -24,13 +24,13 @@
             <a href="#/" use:active={"/"}>
                 Map
             </a>
-            <a href="#/users" use:active={"/users/*"}>
+            <a href="#/users" use:active={"/users*"}>
                 Users
             </a>
-            <a href="#/registration-tokens" use:active={"/registration-tokens/*"}>
+            <a href="#/registration-tokens" use:active={"/registration-tokens*"}>
                 Registration Tokens
             </a>
-            <a href="#/debug" use:active={"/debug/*"}>
+            <a href="#/debug" use:active={"/debug"}>
                 Debug
             </a>
             <div class="flex-grow" />
@@ -50,7 +50,23 @@
 <style>
     a {
         margin: 0 16px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        padding: 8px 12px;
         font-size: 1.5rem;
+        text-decoration: none;
+    }
+
+    a:hover {
+        background-color: rgba(0, 0, 0, .12);
+    }
+
+    a:focus-visible {
+        border-color: #333;
+    }
+
+    a:global(.active) {
+        text-decoration: underline;
     }
 
     .main-menu {
