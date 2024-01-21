@@ -1,7 +1,13 @@
 import { decode, encode } from "msgpack-ts";
 import { rx } from "../rx";
 import { request } from "./session";
-import type { UserInfo } from "@backend/user";
+import type { Rank, UserInfo } from "../backend/user";
+
+export const RANK_NAMES: { readonly [R in Rank]: string } = [
+    "Normal User",
+    "Admin",
+    "Root Admin",
+];
 
 export const USERS = new rx.UniversalSet<UserInfo>(
     () => request('user:list').then(decode),

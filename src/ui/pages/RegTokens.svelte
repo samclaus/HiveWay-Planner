@@ -6,6 +6,8 @@
     import { show } from "../widgets/ModalContainer.svelte";
 
     const status$ = REGISTRATION_TOKENS.status$;
+
+    REGISTRATION_TOKENS.forceRefresh();
 </script>
 
 <h1>Registration Tokens</h1>

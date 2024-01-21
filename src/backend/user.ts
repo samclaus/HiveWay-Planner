@@ -2,6 +2,7 @@
 export const enum Rank {
     User,
     Admin,
+    Root,
 }
 
 export interface UserInfo {

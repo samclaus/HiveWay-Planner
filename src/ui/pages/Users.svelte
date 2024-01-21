@@ -1,8 +1,10 @@
 <script lang="ts">
-    import { USERS, deleteUser } from "../../state/users";
+    import { USERS, RANK_NAMES, deleteUser } from "../../state/users";
     import IconButton from "../widgets/IconButton.svelte";
 
     const status$ = USERS.status$;
+
+    USERS.forceRefresh();
 </script>
 
 <h1>Users</h1>
@@ -15,10 +17,11 @@
     {#each ($USERS || []) as user (user.id)}
     <li>
         <h3>{user.name}</h3>
-        <p>{user.rank ? 'Admin' : 'Normal User'}.</p>
+        <p>{RANK_NAMES[user.rank]}</p>
         <p>{user.email || '(No email specified.)'}</p>
         <p>{user.username}</p>
         <p>{user.id}</p>
+        <!-- TODO: only show delete button if their rank is lower than ours -->
         <IconButton
             label="Delete"
             icon="delete"
