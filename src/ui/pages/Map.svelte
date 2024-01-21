@@ -26,7 +26,7 @@
     onMount((): void => {
         map = new L.Map(mapContainer, new L.SVG({ padding: 2 }), {
             minZoom: 12,
-            maxZoom: 18,
+            maxZoom: 19,
             maxBounds: new L.LatLngBounds(
                 new L.LatLng(29.76348328222648, -82.09842681884767),
                 new L.LatLng(29.520293014753662, -82.59281158447267),
