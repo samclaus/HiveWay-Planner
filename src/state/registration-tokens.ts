@@ -5,8 +5,8 @@ import { request } from "./session";
 export interface RegistrationTokenSpec {
 	// The ID of the token IS the token, i.e., what users see/use.
 	id: string;
-	// Role is the role that will be granted to the user who registers with the token.
-	role: number;
+	// Rank is the rank that will be granted to the user who registers with the token.
+	rank: number;
 	name: string;
 	// Notes is just generic text entered by the admin that created the
 	// token. Useful for mentioning who the token is intended  for.

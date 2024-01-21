@@ -15,7 +15,7 @@
     {#each ($USERS || []) as user (user.id)}
     <li>
         <h3>{user.name}</h3>
-        <p>{user.role ? 'Admin' : 'Normal User'}.</p>
+        <p>{user.rank ? 'Admin' : 'Normal User'}.</p>
         <p>{user.email || '(No email specified.)'}</p>
         <p>{user.username}</p>
         <p>{user.id}</p>
@@ -54,21 +54,5 @@
         border: 2px dashed #777;
         background-color: transparent;
         min-height: 200px;
-    }
-
-    li.new > button {
-        position: absolute;
-        inset: 0;
-        font-size: 2rem;
-        color: #777;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        border: none;
-    }
-
-    li.new > button:hover {
-        background-color: rgba(0, 0, 0, .12);
     }
 </style>

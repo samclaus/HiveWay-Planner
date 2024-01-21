@@ -24,7 +24,7 @@
     {#each ($REGISTRATION_TOKENS || []) as token (token.id)}
     <li>
         <h3>{token.id}</h3>
-        <p>New account will be {token.role ? 'an admin' : 'a normal user'}.</p>
+        <p>New account will be {token.rank ? 'an admin' : 'a normal user'}.</p>
         <p>Created at {new Date(token.created_at)}</p>
         <p>Created by {token.created_by}</p>
         <p>{token.notes}</p>

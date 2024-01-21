@@ -12,7 +12,7 @@
         createRegistrationToken({
             id,
             name,
-            role: admin ? 1 : 0,
+            rank: admin ? 1 : 0,
             notes,
         });
         complete();

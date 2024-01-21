@@ -1,5 +1,5 @@
 
-export const enum Role {
+export const enum Rank {
     User,
     Admin,
 }
@@ -7,7 +7,7 @@ export const enum Role {
 export interface UserInfo {
     readonly id: string;
     readonly username: string;
-    readonly role: Role;
+    readonly rank: Rank;
     readonly name: string;
     readonly email?: string | undefined;
 }
