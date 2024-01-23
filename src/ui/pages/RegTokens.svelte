@@ -41,7 +41,7 @@
 
 <style>
     ul {
-        padding: 0 48px;
+        padding: 0 48px 48px;
         list-style: none;
         max-width: 100vw;
         display: grid;

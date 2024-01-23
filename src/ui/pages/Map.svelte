@@ -72,7 +72,7 @@
 <style>
     .layout {
         /* TODO */
-        height: 80vh;
+        height: 100%;
         display: flex;
     }
 
@@ -87,5 +87,6 @@
         width: 480px;
         border-left: 1px solid #777;
         background-color: #fff;
+        contain: strict;
     }
 </style>

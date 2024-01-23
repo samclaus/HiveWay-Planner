@@ -96,6 +96,10 @@ sendRequest();
         max-width: 85ch;
     }
 
+    .response-container {
+        padding-bottom: 48px;
+    }
+
     pre {
         padding: 12px;
         background-color: rgba(255, 255, 255, 0.1);

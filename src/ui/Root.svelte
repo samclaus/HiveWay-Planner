@@ -19,7 +19,7 @@
 
 {#if $SESSION$.state === "logged-in"}
     {@const user = $SESSION$.conn.user}
-    <div class="isolate">
+    <div class="app-shell isolate">
         <nav>
             <a href="#/" use:active={"/"}>
                 Map
@@ -76,11 +76,20 @@
         border-radius: 6px;
     }
 
+    .app-shell {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        min-height: 100vh;
+    }
+
     .isolate {
         isolation: isolate;
     }
 
     nav {
+        flex-shrink: 0;
         display: flex;
         align-items: center;
         padding: 8px 12px;
@@ -93,6 +102,7 @@
     }
 
     main {
-        padding-bottom: 48px;
+        flex: 1 0 0;
+        min-height: 0; /* needed for children to be able to use % of computed height */
     }
 </style>
