@@ -22,9 +22,19 @@
      * will be used.
      */
     export let color: undefined | "primary" | "warn" = undefined;
+    /**
+     * True/false to designate this button as a "toggle button" and mark
+     * it as pressed/unpressed accordingly. Useful for radio-button-esque
+     * toolbars. For normal buttons, this should be undefined (the default).
+     */
+    export let pressed: boolean | undefined = undefined;
 </script>
 
-<button on:click aria-label={label} style:color={color && colors[color]}>
+<button
+    on:click
+    style:color={color && colors[color]}
+    aria-label={label}
+    aria-pressed={pressed}>
     <svg><use xlink:href="#{icon}" /></svg>
 </button>
 
