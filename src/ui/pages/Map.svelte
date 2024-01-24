@@ -21,6 +21,9 @@
     // ...which will then allow us to initialize the map instance.
     let map: L.Map;
 
+    // TODO: there can be multiple concurrent mapping projects that they can work
+    // on independently
+    let projectName = "Fall 2020 Alt-2";
     let tool: "select" | "add-stop" | "equi-poly" | "rect" | "ellipse" | "polyline" | "polygon" = "select";
 
     // We cannot use the value of the map variable directly because it will not be
@@ -72,7 +75,15 @@
         {/if}
     </div>
     <div class="map-tools">
-        <div class="toolbar" role="toolbar">
+        <div class="toolbar">
+            <h2 class="flex-grow">{projectName}</h2>
+            <select>
+                <option>Edit</option>
+                <option>Collaborators</option>
+                <option>Comments</option>
+            </select>
+        </div>
+        <div class="toolbar secondary" role="toolbar">
             <IconButton
                 label="Select"
                 icon="cursor"
@@ -249,11 +260,22 @@
         contain: strict;
     }
 
+    h2 {
+        margin: 0;
+    }
+
     .toolbar {
+        padding: 12px;
         display: flex;
         align-items: center;
+        gap: 12px;
+        min-height: 48px;
+    }
+
+    .toolbar.secondary {
+        border: 1px solid rgba(0, 0, 0, .12);
+        border-width: 1px 0;
         background-color: #eee;
-        border-bottom: 1px solid rgba(0, 0, 0, .12);
     }
 
     kbd {

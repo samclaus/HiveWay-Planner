@@ -42,7 +42,6 @@
 <style>
     button {
         padding: 8px;
-        margin: 12px;
         width: 42px;
         height: 42px;
         contain: strict;
