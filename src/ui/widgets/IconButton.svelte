@@ -33,6 +33,7 @@
 <button
     on:click
     style:color={color && colors[color]}
+    title={label}
     aria-label={label}
     aria-pressed={pressed}>
     <svg><use xlink:href="#{icon}" /></svg>
@@ -51,7 +52,7 @@
         color: #333;
     }
 
-    button:hover {
+    button:hover, button[aria-pressed="true"] {
         background-color: rgba(0, 0, 0, .12);
     }
 

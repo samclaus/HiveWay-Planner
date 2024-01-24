@@ -3,6 +3,7 @@ import "./styles/reset.css";
 import "./styles/base.css";
 import "./styles/forms.css";
 import "./styles/util.css";
+import "./styles/placeholder.css";
 import Root from "./ui/Root.svelte";
 
 export default new Root({

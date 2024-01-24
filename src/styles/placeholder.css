@@ -1,0 +1,10 @@
+
+.placeholder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 48px;
+    max-width: 85ch;
+    margin: 0 auto;
+}
