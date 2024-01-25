@@ -2,13 +2,14 @@
     import * as L from "leaflet-lite";
     import "leaflet-lite/styles";
     import { onDestroy, onMount, setContext } from "svelte";
-    import { StopType, WheelchairBoarding, type StopSpec } from "../../state/stops";
+    import { StopType, WheelchairBoarding, type StopSpec, STOP_TYPES } from "../../state/stops";
     import { MAP_CTX_KEY } from "../map/MAP_CTX_KEY";
     import Marker from "../map/Marker.svelte";
     import Icon from "../widgets/Icon.svelte";
     import IconButton from "../widgets/IconButton.svelte";
     import Select from "../widgets/Select.svelte";
     import TextField from "../widgets/TextField.svelte";
+    import TextArea from "../widgets/TextArea.svelte";
 
     /**
      * Space-delimited list of classes to add to the map container element.
@@ -110,7 +111,7 @@
         {/if}
     </div>
     <div class="map-tools">
-        <div class="toolbar">
+        <div class="toolbar sticky">
             <h2 class="flex-grow">{projectName}</h2>
             <div class="select-wrapper">
                 <select aria-label="Project navigation">
@@ -192,11 +193,20 @@
 
                         <TextField label="Name" required bind:value={stopSpec.name} autofocus />
                         <TextField label="Text-to-Speech Name" required bind:value={stopSpec.name_tts} />
+                        <TextField label="ID" bind:value={stopSpec.id} />
+                        <TextField label="Code" bind:value={stopSpec.code} />
+                        <TextArea label="Description" bind:value={stopSpec.desc} />
             
                         <Select label="Wheelchair Boarding" bind:value={stopSpec.wheelchair_boarding}>
                             <option value={WheelchairBoarding.Unspecified}>Unspecified</option>
                             <option value={WheelchairBoarding.Some}>Available</option>
                             <option value={WheelchairBoarding.None}>Unavailable</option>
+                        </Select>
+
+                        <Select label="Stop Type" bind:value={stopSpec.type} required>
+                            {#each STOP_TYPES as name, type}
+                                <option value={type}>{name}</option>
+                            {/each}
                         </Select>
             
                     </div>
@@ -321,6 +331,7 @@
         border-left: 1px solid #777;
         background-color: #fff;
         contain: strict;
+        overflow-y: auto;
     }
 
     h2 {
@@ -333,6 +344,13 @@
         align-items: center;
         gap: 12px;
         min-height: 48px;
+    }
+
+    .toolbar.sticky {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: #fff;
     }
 
     .toolbar.secondary {

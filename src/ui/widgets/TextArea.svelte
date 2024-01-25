@@ -25,7 +25,7 @@
     import { onMount } from "svelte";
 
     export let label: string;
-    export let value: string;
+    export let value: string | undefined;
     export let required = false;
     export let maxlength: number | undefined = undefined;
     export let placeholder: string | undefined = undefined;

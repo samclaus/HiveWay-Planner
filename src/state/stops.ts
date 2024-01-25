@@ -16,6 +16,7 @@ export const enum WheelchairBoarding {
 }
 
 export interface StopSpec {
+    id?: string;
     code: string;
     name: string;
     name_tts: string;
@@ -36,7 +37,7 @@ export interface StopInfo extends StopSpec {
     id: string;
 }
 
-export const STOP_TYPES: { readonly [T in StopType]: string } = [
+export const STOP_TYPES: readonly string[] & { readonly [T in StopType]: string } = [
     "Stop (or Platform)",
     "Station",
     "Entrance/Exit",
