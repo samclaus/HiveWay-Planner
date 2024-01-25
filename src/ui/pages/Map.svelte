@@ -4,7 +4,7 @@
     import { onDestroy, onMount, setContext } from "svelte";
     import { StopType, WheelchairBoarding, type StopSpec } from "../../state/stops";
     import { MAP_CTX_KEY } from "../map/MAP_CTX_KEY";
-    import StopMarker from "../map/StopMarker.svelte";
+    import Marker from "../map/Marker.svelte";
     import Icon from "../widgets/Icon.svelte";
     import IconButton from "../widgets/IconButton.svelte";
     import Select from "../widgets/Select.svelte";
@@ -26,8 +26,7 @@
     let projectName = "Fall 2020 Alt-2";
     let tool: "select" | "add-stop" | "equi-poly" | "rect" | "ellipse" | "polyline" | "polygon" = "select";
     let selectedID: string | undefined;
-    let editing = false;
-    let stopSpec: StopSpec;
+    let stopSpec: StopSpec | undefined;
 
     // We cannot use the value of the map variable directly because it will not be
     // created until onMount() is called, which will happen immediately after this
@@ -83,6 +82,8 @@
                         wheelchair_boarding: WheelchairBoarding.Unspecified,
                     };
                 }
+
+                map.setView(ev.latlng, Math.max(18, map._zoom));
             }
         })
     });
@@ -90,13 +91,21 @@
     onDestroy((): void => {
         map?.dispose();
     });
+
+    function cancel(): void {
+        stopSpec = undefined;
+    }
+
+    function createStop(): void {
+        
+    }
 </script>
 
 <div class="layout">
-    <div class="map {className}" bind:this={mapContainer}>
+    <div class="map {className}" style:cursor={tool === "add-stop" ? "crosshair" : undefined} bind:this={mapContainer}>
         {#if map}
             {#if stopSpec}
-                <StopMarker name={stopSpec.name} lat={stopSpec.lat} lng={stopSpec.lng} />
+                <Marker lat={stopSpec.lat} lng={stopSpec.lng} />
             {/if}
         {/if}
     </div>
@@ -104,7 +113,7 @@
         <div class="toolbar">
             <h2 class="flex-grow">{projectName}</h2>
             <div class="select-wrapper">
-                <select>
+                <select aria-label="Project navigation">
                     <option>Edit</option>
                     <option>Collaborators</option>
                     <option>Comments</option>
@@ -177,7 +186,7 @@
             </div>
         {:else if tool === "add-stop"}
             {#if stopSpec}
-                <form>
+                <form on:submit|preventDefault={createStop}>
                     <h3>Create Stop</h3>
                     <div class="form-fields">
 
@@ -190,6 +199,14 @@
                             <option value={WheelchairBoarding.None}>Unavailable</option>
                         </Select>
             
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" on:click={cancel}>
+                            Cancel
+                        </button>
+                        <button type="submit" class="filled">
+                            Create Stop
+                        </button>
                     </div>
                 </form>
             {:else}
