@@ -1,14 +1,13 @@
-<script lang="ts" context="module">
-    export const MAP_CTX_KEY = Symbol();
-</script>
-
 <script lang="ts">
-    import IconButton from "../widgets/IconButton.svelte";
-
     import * as L from "leaflet-lite";
     import "leaflet-lite/styles";
     import { onDestroy, onMount, setContext } from "svelte";
+    import { StopType, WheelchairBoarding, type StopSpec } from "../../state/stops";
+    import { MAP_CTX_KEY } from "../map/MAP_CTX_KEY";
+    import StopMarker from "../map/StopMarker.svelte";
     import Icon from "../widgets/Icon.svelte";
+    import IconButton from "../widgets/IconButton.svelte";
+    import TextField from "../widgets/TextField.svelte";
 
     /**
      * Space-delimited list of classes to add to the map container element.
@@ -25,6 +24,9 @@
     // on independently
     let projectName = "Fall 2020 Alt-2";
     let tool: "select" | "add-stop" | "equi-poly" | "rect" | "ellipse" | "polyline" | "polygon" = "select";
+    let selectedID: string | undefined;
+    let editing = false;
+    let stopSpec: StopSpec;
 
     // We cannot use the value of the map variable directly because it will not be
     // created until onMount() is called, which will happen immediately after this
@@ -61,6 +63,27 @@
                 },
             ),
         );
+
+        map.on("click", ev => {
+            const { lat, lng } = ev.latlng;
+
+            if (tool === 'add-stop') {
+                if (stopSpec) {
+                    stopSpec.lat = lat;
+                    stopSpec.lng = lng;
+                } else {
+                    stopSpec = {
+                        code: "",
+                        name: "",
+                        name_tts: "",
+                        lat,
+                        lng,
+                        type: StopType.StopOrPlatform,
+                        wheelchair_boarding: WheelchairBoarding.Unspecified,
+                    };
+                }
+            }
+        })
     });
 
     onDestroy((): void => {
@@ -71,7 +94,9 @@
 <div class="layout">
     <div class="map {className}" bind:this={mapContainer}>
         {#if map}
-            <slot />
+            {#if stopSpec}
+                <StopMarker name={stopSpec.name} lat={stopSpec.lat} lng={stopSpec.lng} />
+            {/if}
         {/if}
     </div>
     <div class="map-tools">
@@ -148,18 +173,35 @@
                 </p>
             </div>
         {:else if tool === "add-stop"}
-            <div class="placeholder">
-                <Icon
-                    name="bus-stop"
-                    color="primary"
-                    size={72} />
-                <h3>Create Bus Stop</h3>
-                <p>
-                    Click on the map to create a new bus stop. A form will appear
-                    in this panel, allowing you to configure the stop information,
-                    or cancel creation altogether.
-                </p>
-            </div>
+            {#if stopSpec}
+                <form>
+                    <div class="form-fields">
+
+                        <TextField label="Name" required bind:value={stopSpec.name} autofocus />
+                        <TextField label="Text-to-Speech Name" required bind:value={stopSpec.name_tts} />
+            
+                        <select bind:value={stopSpec.wheelchair_boarding}>
+                            <option value={WheelchairBoarding.Unspecified}>Unspecified</option>
+                            <option value={WheelchairBoarding.Some}>Available</option>
+                            <option value={WheelchairBoarding.None}>Unavailable</option>
+                        </select>
+            
+                    </div>
+                </form>
+            {:else}
+                <div class="placeholder">
+                    <Icon
+                        name="bus-stop"
+                        color="primary"
+                        size={72} />
+                    <h3>Create Bus Stop</h3>
+                    <p>
+                        Click on the map to create a new bus stop. A form will appear
+                        in this panel, allowing you to configure the stop information,
+                        or cancel creation altogether.
+                    </p>
+                </div>
+            {/if}
         {:else if tool === "polyline"}
             <div class="placeholder">
                 <Icon
