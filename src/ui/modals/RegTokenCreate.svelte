@@ -1,6 +1,8 @@
 <script lang="ts">
     import { createRegistrationToken } from "../../state/registration-tokens";
+    import Checkbox from "../widgets/Checkbox.svelte";
     import { cancel, complete } from '../widgets/ModalContainer.svelte';
+    import TextArea from '../widgets/TextArea.svelte';
     import TextField from '../widgets/TextField.svelte';
 
     let name = '';
@@ -43,17 +45,22 @@
             bind:value={id}
             required
             maxlength={100}
-            placeholder="Something memorable, like 'zebra-unicorn-3'" />
+            placeholder="A single-use password for registering" />
 
-        <label>
-            <input type="checkbox" bind:value={admin}>
-            This user should be an administrator
-        </label>
+        <Checkbox label="Make Administrator&mdash;CAUTION" bind:value={admin}>
+            <p>
+                The user who registers with this token will be given
+                administrator rank, and all the privileges that come
+                with it.
+            </p>
+            <p>
+                Only you can make new administrators, because you are
+                the root user. Existing administrators will not be
+                able to see or interact with this token.
+            </p>
+        </Checkbox>
 
-        <label>
-            Notes
-            <textarea bind:value={notes}></textarea>
-        </label>
+        <TextArea label="Notes" bind:value={notes} />
 
     </div>
 
