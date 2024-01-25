@@ -45,6 +45,11 @@ h2 {
     word-break: break-word;
 }
 
+h3 {
+    font-size: 1.75rem;
+    margin: 1rem 0;
+}
+
 p {
     font-size: 1.125rem;
     margin: 1.25em 0;

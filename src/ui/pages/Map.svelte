@@ -7,6 +7,7 @@
     import StopMarker from "../map/StopMarker.svelte";
     import Icon from "../widgets/Icon.svelte";
     import IconButton from "../widgets/IconButton.svelte";
+    import Select from "../widgets/Select.svelte";
     import TextField from "../widgets/TextField.svelte";
 
     /**
@@ -103,11 +104,11 @@
         <div class="toolbar">
             <h2 class="flex-grow">{projectName}</h2>
             <div class="select-wrapper">
-            <select>
-                <option>Edit</option>
-                <option>Collaborators</option>
-                <option>Comments</option>
-            </select>
+                <select>
+                    <option>Edit</option>
+                    <option>Collaborators</option>
+                    <option>Comments</option>
+                </select>
             </div>
         </div>
         <div class="toolbar secondary" role="toolbar">
@@ -177,16 +178,17 @@
         {:else if tool === "add-stop"}
             {#if stopSpec}
                 <form>
+                    <h3>Create Stop</h3>
                     <div class="form-fields">
 
                         <TextField label="Name" required bind:value={stopSpec.name} autofocus />
                         <TextField label="Text-to-Speech Name" required bind:value={stopSpec.name_tts} />
             
-                        <select bind:value={stopSpec.wheelchair_boarding}>
+                        <Select label="Wheelchair Boarding" bind:value={stopSpec.wheelchair_boarding}>
                             <option value={WheelchairBoarding.Unspecified}>Unspecified</option>
                             <option value={WheelchairBoarding.Some}>Available</option>
                             <option value={WheelchairBoarding.None}>Unavailable</option>
-                        </select>
+                        </Select>
             
                     </div>
                 </form>
