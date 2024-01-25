@@ -102,11 +102,13 @@
     <div class="map-tools">
         <div class="toolbar">
             <h2 class="flex-grow">{projectName}</h2>
+            <div class="select-wrapper">
             <select>
                 <option>Edit</option>
                 <option>Collaborators</option>
                 <option>Comments</option>
             </select>
+            </div>
         </div>
         <div class="toolbar secondary" role="toolbar">
             <IconButton
