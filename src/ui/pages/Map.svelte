@@ -191,13 +191,16 @@
                     <h3>Create Stop</h3>
                     <div class="form-fields">
 
-                        <TextField label="Name" required bind:value={stopSpec.name} autofocus />
-                        <TextField label="Text-to-Speech Name" required bind:value={stopSpec.name_tts} />
+                        <TextField label="Name" hint="Customer-facing name for the stop" required bind:value={stopSpec.name} autofocus />
+                        <TextField label="Text-to-Speech Name" hint="Must not be the same as 'Name'; this is what ADA systems will announce verbally, so it should be free of abbreviations and contractions" bind:value={stopSpec.name_tts} />
                         <TextField label="ID" bind:value={stopSpec.id} />
                         <TextField label="Code" bind:value={stopSpec.code} />
-                        <TextArea label="Description" bind:value={stopSpec.desc} />
+                        <TextArea label="Description" hint="Useful information for recognizing/using the stop" bind:value={stopSpec.desc} />
             
-                        <Select label="Wheelchair Boarding" bind:value={stopSpec.wheelchair_boarding}>
+                        <Select
+                            label="Wheelchair Boarding"
+                            hint="Available only means there is *some* availability"
+                            bind:value={stopSpec.wheelchair_boarding}>
                             <option value={WheelchairBoarding.Unspecified}>Unspecified</option>
                             <option value={WheelchairBoarding.Some}>Available</option>
                             <option value={WheelchairBoarding.None}>Unavailable</option>
