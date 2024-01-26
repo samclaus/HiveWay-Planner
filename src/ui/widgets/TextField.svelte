@@ -9,12 +9,13 @@
 
     <input
         id={inputID}
-        type="text"
+        {type}
         {required}
         {maxlength}
         {placeholder}
+        {value}
         bind:this={inputEl}
-        bind:value>
+        on:input={onInput}>
 
     <div class="input-helpers">
         <div class="input-hint">{hint || ""}</div>
@@ -32,6 +33,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
 
+    export let type: "text" | "email" | "password" = "text";
     export let label: string;
     export let hint: string | undefined = undefined;
     export let value: string | undefined;
@@ -49,4 +51,8 @@
             inputEl.focus();
         }
     });
+
+    function onInput(): void {
+        value = inputEl.value;
+    }
 </script>
