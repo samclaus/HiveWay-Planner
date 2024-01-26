@@ -17,6 +17,10 @@
         </select>
     </div>
 
+    <div class="input-helpers">
+        <div class="input-hint">{hint || ""}</div>
+    </div>
+
 </label>
 
 <script lang="ts" context="module">
@@ -27,6 +31,7 @@
     import { onMount } from "svelte";
 
     export let label: string;
+    export let hint: string | undefined = undefined;
     export let value: any;
     export let required = false;
     export let autofocus = false;
