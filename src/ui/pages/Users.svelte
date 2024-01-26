@@ -19,7 +19,6 @@
         <h3>{user.name}</h3>
         <p>{RANK_NAMES[user.rank]}</p>
         <p>{user.email || '(No email specified.)'}</p>
-        <p>{user.username}</p>
         <p>{user.id}</p>
         <!-- TODO: only show delete button if their rank is lower than ours -->
         <IconButton
