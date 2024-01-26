@@ -20,12 +20,14 @@
         <p>{RANK_NAMES[user.rank]}</p>
         <p>{user.email || '(No email specified.)'}</p>
         <p>{user.id}</p>
-        <!-- TODO: only show delete button if their rank is lower than ours -->
-        <IconButton
-            label="Delete"
-            icon="delete"
-            color="warn"
-            on:click={() => deleteUser(user.id)} />
+        <div class="form-actions">
+            <!-- TODO: only show delete button if their rank is lower than ours -->
+            <IconButton
+                label="Delete"
+                icon="delete"
+                color="warn"
+                on:click={() => deleteUser(user.id)} />
+        </div>
     </li>
     {/each}
 </ul>

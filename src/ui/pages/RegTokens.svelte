@@ -30,11 +30,13 @@
         <p>Created at {new Date(token.created_at)}</p>
         <p>Created by {token.created_by}</p>
         <p>{token.notes}</p>
-        <IconButton
-            label="Delete"
-            icon="delete"
-            color="warn"
-            on:click={() => deleteRegistrationToken(token.id)} />
+        <div class="form-actions">
+            <IconButton
+                label="Delete"
+                icon="delete"
+                color="warn"
+                on:click={() => deleteRegistrationToken(token.id)} />
+        </div>
     </li>
     {/each}
 </ul>
