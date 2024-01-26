@@ -84,11 +84,11 @@
 
 		<div class="form-fields">
 
-			<TextField label="Username" required bind:value={username} autofocus />
+			<TextField label="Username" hint="May be an email address (but is independent from your optional contact email)" maxlength={50} required bind:value={username} autofocus />
 			<TextField label="Password" required bind:value={password} />
 
 			{#if register}
-				<TextField label="Registration Token" required bind:value={regToken} />
+				<TextField label="Registration Token" hint="The secret token an administrator sent you" required bind:value={regToken} />
 				<TextField label="Email" bind:value={email} />
 			{/if}
 
