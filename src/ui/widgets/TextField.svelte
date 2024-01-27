@@ -13,7 +13,7 @@
         {required}
         {maxlength}
         {placeholder}
-        {value}
+        value={value || ""}
         bind:this={inputEl}
         on:input={onInput}>
 
