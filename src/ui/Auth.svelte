@@ -133,7 +133,11 @@
 		border: 2px solid #aaa;
 		border-bottom-color: #777;
 		display: inline-block;
-		transition: none;
+		transform-origin: bottom center;
+	}
+
+	.tab:active {
+		transform: scaleY(0.9);
 	}
 
 	.tab.active {
