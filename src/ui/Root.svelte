@@ -8,6 +8,7 @@
     import RegTokens from "./pages/RegTokens.svelte";
     import Users from "./pages/Users.svelte";
     import ModalContainer from "./widgets/ModalContainer.svelte";
+    import { DEBUG } from "../state/debug";
 
     const routes = {
         '/': Map,
@@ -31,9 +32,11 @@
                     Registration Tokens
                 </a>
             {/if}
-            <a href="#/debug" use:active={"/debug"}>
-                Debug
-            </a>
+            {#if $DEBUG}
+                <a href="#/debug" use:active={"/debug"}>
+                    Debug
+                </a>
+            {/if}
             <div class="flex-grow" />
             <button class="main-menu" on:click={logout}>
                 {$MY_INFO$.name} - click to log out
