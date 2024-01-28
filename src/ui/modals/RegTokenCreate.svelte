@@ -1,5 +1,7 @@
 <script lang="ts">
+    import { Rank } from "../../backend/user";
     import { createRegistrationToken } from "../../state/registration-tokens";
+    import { MY_INFO$ } from "../../state/session";
     import Checkbox from "../widgets/Checkbox.svelte";
     import { cancel, complete } from '../widgets/ModalContainer.svelte';
     import TextArea from '../widgets/TextArea.svelte';
@@ -47,18 +49,20 @@
             maxlength={100}
             placeholder="A single-use password for registering" />
 
-        <Checkbox label="Make Administrator&mdash;CAUTION" bind:value={admin}>
-            <p>
-                The user who registers with this token will be given
-                administrator rank, and all the privileges that come
-                with it.
-            </p>
-            <p>
-                Only you can make new administrators, because you are
-                the root user. Existing administrators will not be
-                able to see or interact with this token.
-            </p>
-        </Checkbox>
+        {#if $MY_INFO$?.rank > Rank.Admin}
+            <Checkbox label="Make Administrator&mdash;CAUTION" bind:value={admin}>
+                <p>
+                    The user who registers with this token will be given
+                    administrator rank, and all the privileges that come
+                    with it.
+                </p>
+                <p>
+                    Only you can make new administrators, because you are
+                    the root user. Existing administrators will not be
+                    able to see or interact with this token.
+                </p>
+            </Checkbox>
+        {/if}
 
         <TextArea label="Notes" bind:value={notes} />
 

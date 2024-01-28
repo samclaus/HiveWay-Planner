@@ -1,5 +1,7 @@
 <script lang="ts">
+    import { MY_INFO$ } from "../../state/session";
     import { USERS, RANK_NAMES, deleteUser } from "../../state/users";
+    import Icon from "../widgets/Icon.svelte";
     import IconButton from "../widgets/IconButton.svelte";
 
     const status$ = USERS.status$;
@@ -13,50 +15,31 @@
     <p class="legible-width">{$status$.refreshError.message}</p>
 {/if}
 
-<ul>
+<ul class="card-grid">
     {#each ($USERS || []) as user (user.id)}
-    <li>
+    <li class="card">
         <h3>{user.name}</h3>
-        <p>{RANK_NAMES[user.rank]}</p>
-        <p>{user.email || '(No email specified.)'}</p>
-        <p>{user.id}</p>
-        <div class="form-actions">
-            <!-- TODO: only show delete button if their rank is lower than ours -->
-            <IconButton
-                label="Delete"
-                icon="delete"
-                color="warn"
-                on:click={() => deleteUser(user.id)} />
+        <p class="card-field">
+            <Icon name="badge-account" />
+            <strong>{RANK_NAMES[user.rank]}</strong>
+        </p>
+        <p class="card-field">
+            <Icon name="atsign" />
+            {#if user.email}
+                <strong>{user.email}</strong>
+            {:else}
+                <em>No email provided.</em>
+            {/if}
+        </p>
+        <div class="card-actions">
+            {#if $MY_INFO$.rank > user.rank}
+                <IconButton
+                    label="Delete"
+                    icon="delete"
+                    color="warn"
+                    on:click={() => deleteUser(user.id)} />
+            {/if}
         </div>
     </li>
     {/each}
 </ul>
-
-<style>
-    ul {
-        padding: 0 48px 48px;
-        list-style: none;
-        max-width: 100vw;
-        display: grid;
-        gap: 16px;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        grid-auto-rows: min-content;
-        /* grid-auto-flow: column; */
-        place-items: stretch;
-    }
-
-    li {
-        border-radius: 12px;
-        border: 2px solid #777;
-        padding: 0 12px;
-        margin: 0;
-        background-color: white;
-    }
-
-    li.new {
-        position: relative;
-        border: 2px dashed #777;
-        background-color: transparent;
-        min-height: 200px;
-    }
-</style>

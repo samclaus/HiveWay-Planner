@@ -1,7 +1,7 @@
 <script lang="ts">
     import Router from "svelte-spa-router";
     import active from "svelte-spa-router/active";
-    import { SESSION$, logout } from "../state/session";
+    import { MY_INFO$, SESSION$, logout } from "../state/session";
     import Auth from "./Auth.svelte";
     import Debug from "./pages/Debug.svelte";
     import Map from "./pages/Map.svelte";
@@ -18,7 +18,6 @@
 </script>
 
 {#if $SESSION$.state === "logged-in"}
-    {@const user = $SESSION$.conn.user}
     <div class="app-shell isolate">
         <nav>
             <a href="#/" use:active={"/"}>
@@ -27,15 +26,17 @@
             <a href="#/users" use:active={"/users*"}>
                 Users
             </a>
-            <a href="#/registration-tokens" use:active={"/registration-tokens*"}>
-                Registration Tokens
-            </a>
+            {#if $MY_INFO$.rank}
+                <a href="#/registration-tokens" use:active={"/registration-tokens*"}>
+                    Registration Tokens
+                </a>
+            {/if}
             <a href="#/debug" use:active={"/debug"}>
                 Debug
             </a>
             <div class="flex-grow" />
             <button class="main-menu" on:click={logout}>
-                {user.name} - click to log out
+                {$MY_INFO$.name} - click to log out
             </button>
         </nav>
         <main>

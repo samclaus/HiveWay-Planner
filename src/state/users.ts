@@ -15,6 +15,11 @@ export const USERS = new rx.UniversalSet<UserInfo>(
     5 * 60_000,
 );
 
+export function userName(id: string): string {
+    const user = USERS.get(id);
+    return user ? user.name : id;
+}
+
 export async function deleteUser(id: string): Promise<void> {
     await request('user:delete', encode(id));
     USERS.$delete(id);

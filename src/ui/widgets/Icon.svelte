@@ -26,15 +26,16 @@
 <svg
     aria-hidden="true"
     style:color={color && colors[color]}
-    style:width={size}
-    style:height={size}>
+    style:--size="{size}px">
     <use xlink:href="#{name}" />
 </svg>
 
 <style>
     svg {
-        width: 24px;
-        height: 24px;
+        width: var(--size, 24px);
+        height: var(--size, 24px);
+        min-width: var(--size, 24px);
+        min-height: var(--size, 24px);
         fill: currentColor;
     }
 </style>

@@ -1,3 +1,4 @@
+import { Rank } from "../backend/user";
 import { TransientBackendConn, type AuthRequest } from "../backend/transient-conn";
 import { rx } from "../rx";
 
@@ -16,12 +17,33 @@ export type SessionState = {
     firstLogin: boolean;
 };
 
+export interface MyInfo {
+    id: string;
+    name: string;
+    rank: Rank;
+    email: string | undefined;
+}
+
 const sessionMut = new rx.MutableValue<SessionState>({
     state: "logged-out",
     authErr: undefined,
 });
+const loggedOutInfo: MyInfo = {
+    id: "(logged-out)",
+    name: "(logged-out)",
+    rank: Rank.User,
+    email: undefined,
+};
+const myInfo = { ...loggedOutInfo };
+const myInfoMut = new rx.MutableValue<MyInfo>(myInfo);
 
 export const SESSION$: rx.ValueWithSnapshot<SessionState> = sessionMut;
+export const MY_INFO$: rx.ValueWithSnapshot<MyInfo> = myInfoMut;
+
+SESSION$.subscribe(s => {
+    Object.assign(myInfo, s.state === "logged-in" ? s.conn.user : loggedOutInfo);
+    myInfoMut.setValue(myInfo);
+});
 
 export function authenticate(auth: AuthRequest): void {
     if (sessionMut.snapshot.state !== "logged-out") {

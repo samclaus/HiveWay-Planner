@@ -69,6 +69,8 @@
             ),
         );
 
+        const polyPoints: any[] = [];
+
         map.on("click", ev => {
             const { lat, lng } = ev.latlng;
 
@@ -89,6 +91,19 @@
                 }
 
                 map.setView(ev.latlng, Math.max(18, map._zoom));
+            } else if (polyPoints.length > 9) {
+                map.addLayer(
+                    new L.Polygon([
+                        polyPoints.slice(0, 5) as any,
+                        polyPoints.slice(5) as any,
+                    ], {
+                        fill: true,
+                        fillColor: "blue",
+                    }),
+                );
+                polyPoints.length = 0;
+            } else {
+                polyPoints.push(new L.LatLng(lat, lng));
             }
         })
     });
