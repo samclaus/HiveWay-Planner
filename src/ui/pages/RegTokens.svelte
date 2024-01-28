@@ -31,7 +31,13 @@
     <li class="card--new">
         <button on:click={() => show(RegTokenCreate)}>
             <Icon name="plus" size={72} />
-            New Token
+            <h3>New Token</h3>
+            <p>
+                Registration tokens are single-use passwords that
+                allow new users to register. Create one and
+                distribute it via email or another secure medium
+                when onboarding a user.
+            </p>
         </button>
     </li>
     {#each ($REGISTRATION_TOKENS || []) as token (token.id)}

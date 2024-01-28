@@ -36,18 +36,20 @@
 
         <TextField
             label="Name"
+            hint="The user you are onboarding; this name will be associated with the account that is created using this token, but they can change their name later"
             bind:value={name}
             required
             maxlength={100}
-            placeholder="The person you are onboarding, e.g., John Doe"
+            placeholder="e.g. John Doe"
             autofocus />
 
         <TextField
             label="Token"
+            hint="This is the secret password you will send to the user you are onboarding"
             bind:value={id}
             required
             maxlength={100}
-            placeholder="A single-use password for registering" />
+            placeholder="e.g. squinting-black-squid-419" />
 
         {#if $MY_INFO$?.rank > Rank.Admin}
             <Checkbox label="Make Administrator&mdash;CAUTION" bind:value={admin}>
@@ -64,7 +66,11 @@
             </Checkbox>
         {/if}
 
-        <TextArea label="Notes" bind:value={notes} />
+        <TextArea
+            label="Notes"
+            hint="Any useful information that helps you and other admins manage the tokens"
+            placeholder="e.g. Make sure John has completed the standard employee agreement prior to registration."
+            bind:value={notes} />
 
     </div>
 
