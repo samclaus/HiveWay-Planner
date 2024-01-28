@@ -74,6 +74,11 @@ button {
     font-weight: 500;
     cursor: pointer;
     outline: none;
+    transition: transform .1s ease-in-out;
+}
+
+button:active {
+    transform: scale(0.9);
 }
 
 button:hover, button:focus {

@@ -13,23 +13,22 @@
 
 .card--new {
     margin: 0;
-    position: relative;
-    border-radius: 12px;
-    border: 2px dashed #777;
-    background-color: transparent;
-    min-height: 200px;
 }
 
 .card--new > button {
-    position: absolute;
-    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 200px;
+    min-height: 200px;
+    border-radius: 12px;
+    border: 2px dashed #777;
+    background-color: transparent;
     font-size: 2rem;
     color: #777;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: none;
 }
 
 .card--new > button:hover {
