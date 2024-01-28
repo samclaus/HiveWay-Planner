@@ -136,6 +136,10 @@
 		transform-origin: bottom center;
 	}
 
+	.tab:focus-visible {
+		text-decoration: underline;
+	}
+
 	.tab:active {
 		transform: scaleY(0.9);
 	}
