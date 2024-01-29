@@ -438,16 +438,4 @@
         border-width: 1px 0;
         background-color: #eee;
     }
-
-    kbd {
-        font-family: monospace;
-        font-weight: 700;
-        padding: 2px 6px;
-        border: 0.5px solid #777;
-        line-height: 1em;
-        border-radius: 4px;
-        box-shadow: 1px 1px #777;
-        background-color: #eee;
-        position: relative;
-    }
 </style>
