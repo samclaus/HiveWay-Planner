@@ -6,6 +6,8 @@
 </script>
 
 <script lang="ts">
+    import { tooltip } from "../actions/tooltip";
+
     /**
      * Value for the aria-label attribute (required for a11y), as
      * well as a visual tooltip in the future (TODO).
@@ -35,7 +37,8 @@
     style:color={color && colors[color]}
     title={label}
     aria-label={label}
-    aria-pressed={pressed}>
+    aria-pressed={pressed}
+    use:tooltip={{ content: label }}>
     <svg><use xlink:href="#{icon}" /></svg>
 </button>
 

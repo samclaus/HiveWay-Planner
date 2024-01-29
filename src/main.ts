@@ -1,5 +1,6 @@
 // Import the CSS so Vite (and Rollup) will bundle them with the application
 import "./styles/reset.css";
+import "tippy.js/dist/tippy.css";
 import "./styles/base.css";
 import "./styles/forms.css";
 import "./styles/cards.css";
