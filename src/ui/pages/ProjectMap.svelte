@@ -2,20 +2,19 @@
     import * as L from "leaflet-lite";
     import "leaflet-lite/styles";
     import { onDestroy, onMount, setContext } from "svelte";
-    import { StopType, WheelchairBoarding, type StopSpec, STOP_TYPES } from "../../state/stops";
+    import { PROJECTS } from "../../state/projects";
+    import { STOP_TYPES, StopType, WheelchairBoarding, type StopSpec } from "../../state/stops";
     import { MAP_CTX_KEY } from "../map/MAP_CTX_KEY";
     import Marker from "../map/Marker.svelte";
     import Icon from "../widgets/Icon.svelte";
     import IconButton from "../widgets/IconButton.svelte";
     import Select from "../widgets/Select.svelte";
-    import TextField from "../widgets/TextField.svelte";
     import TextArea from "../widgets/TextArea.svelte";
+    import TextField from "../widgets/TextField.svelte";
 
-    /**
-     * Space-delimited list of classes to add to the map container element.
-     */
-    let className = "";
-    export { className as class };
+    export let params: {
+        id: string;
+    };
 
     // This will not be assigned a value until Svelte calls onMount()...
     let mapContainer: HTMLDivElement;
@@ -24,7 +23,7 @@
 
     // TODO: there can be multiple concurrent mapping projects that they can work
     // on independently
-    let projectName = "Fall 2020 Alt-2";
+    let projectName = PROJECTS.get(params.id)?.name || "(Unknown Project)";
     let tool: "select" | "add-stop" | "equi-poly" | "rect" | "ellipse" | "polyline" | "polygon" = "select";
     let selectedID: string | undefined;
     let stopSpec: StopSpec | undefined;
@@ -122,7 +121,7 @@
 </script>
 
 <div class="layout">
-    <div class="map {className}" style:cursor={tool === "add-stop" ? "crosshair" : undefined} bind:this={mapContainer}>
+    <div class="map" style:cursor={tool === "add-stop" ? "crosshair" : undefined} bind:this={mapContainer}>
         {#if map}
             {#if stopSpec}
                 <Marker lat={stopSpec.lat} lng={stopSpec.lng} />

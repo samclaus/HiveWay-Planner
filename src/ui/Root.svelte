@@ -4,14 +4,16 @@
     import { MY_INFO$, SESSION$, logout } from "../state/session";
     import Auth from "./Auth.svelte";
     import Debug from "./pages/Debug.svelte";
-    import Map from "./pages/Map.svelte";
+    import ProjectMap from "./pages/ProjectMap.svelte";
     import RegTokens from "./pages/RegTokens.svelte";
     import Users from "./pages/Users.svelte";
     import ModalContainer from "./widgets/ModalContainer.svelte";
     import { DEBUG } from "../state/debug";
+    import Projects from "./pages/Projects.svelte";
 
     const routes = {
-        '/': Map,
+        '/': Projects,
+        '/projects/:id': ProjectMap,
         '/registration-tokens': RegTokens,
         '/users': Users,
         '/debug': Debug,
@@ -22,7 +24,7 @@
     <div class="app-shell isolate">
         <nav>
             <a href="#/" use:active={"/"}>
-                Map
+                Projects
             </a>
             <a href="#/users" use:active={"/users*"}>
                 Users
