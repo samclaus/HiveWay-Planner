@@ -21,9 +21,21 @@
 
     const current = writable<Modal | undefined>(undefined);
 
+    let prevActiveElement: unknown;
+
+    function restoreFocus(): void {
+        if (prevActiveElement instanceof HTMLElement) {
+            prevActiveElement.focus();
+            prevActiveElement = undefined;
+        }
+    }
+
     export function show<T>(component: any, params?: any): Promise<T> {
         // Cancel the current modal, if any
         cancel();
+
+        // So we can restore focus after the modal is closed
+        prevActiveElement = document.activeElement;
 
         // Now show the new modal and return the deferred result promise
         const d = new Deferred<T>();
@@ -41,6 +53,7 @@
         if (modal) {
             modal[2].resolve(result);
             current.set(undefined);
+            restoreFocus();
         }
     }
 
@@ -50,6 +63,7 @@
         if (modal) {
             modal[2].reject(new ModalCanceledError());
             current.set(undefined);
+            restoreFocus();
         }
     }
 

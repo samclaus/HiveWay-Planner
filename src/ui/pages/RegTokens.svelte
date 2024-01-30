@@ -1,6 +1,7 @@
 <script lang="ts">
     import { REGISTRATION_TOKENS, deleteRegistrationToken } from "../../state/registration-tokens";
     import { USERS, userName } from "../../state/users";
+    import { autofocus } from "../actions/autofocus";
     import RegTokenCreate from "../modals/RegTokenCreate.svelte";
     import Icon from "../widgets/Icon.svelte";
     import IconButton from "../widgets/IconButton.svelte";
@@ -29,7 +30,7 @@
 
 <ul class="card-grid">
     <li class="card--new">
-        <button on:click={() => show(RegTokenCreate)}>
+        <button use:autofocus on:click={() => show(RegTokenCreate)}>
             <Icon name="plus" size={72} />
             <h3>New Token</h3>
             <p>

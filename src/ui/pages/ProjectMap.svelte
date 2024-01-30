@@ -4,6 +4,7 @@
     import { onDestroy, onMount, setContext } from "svelte";
     import { PROJECTS } from "../../state/projects";
     import { STOP_TYPES, StopType, WheelchairBoarding, type StopSpec } from "../../state/stops";
+    import { autofocus } from "../actions/autofocus";
     import { MAP_CTX_KEY } from "../map/MAP_CTX_KEY";
     import Marker from "../map/Marker.svelte";
     import Icon from "../widgets/Icon.svelte";
@@ -132,7 +133,7 @@
         <div class="toolbar sticky">
             <h2 class="flex-grow">{projectName}</h2>
             <div class="select-wrapper">
-                <select aria-label="Project navigation">
+                <select aria-label="Project navigation" use:autofocus>
                     <option>Edit</option>
                     <option>Collaborators</option>
                     <option>Comments</option>

@@ -1,6 +1,7 @@
 <script lang="ts">
     import { PROJECTS, deleteProject } from "../../state/projects";
     import { USERS, userName } from "../../state/users";
+    import { autofocus } from "../actions/autofocus";
     import { cardLink } from "../actions/card-link";
     import ProjectSave from "../modals/ProjectSave.svelte";
     import Icon from "../widgets/Icon.svelte";
@@ -20,7 +21,7 @@
 
 <ul class="card-grid">
     <li class="card--new">
-        <button on:click={() => show(ProjectSave)}>
+        <button use:autofocus on:click={() => show(ProjectSave)}>
             <Icon name="plus" size={72} />
             <h3>New Project</h3>
             <p>
