@@ -66,5 +66,6 @@
         width: 24px;
         height: 24px;
         fill: currentColor;
+        pointer-events: none;
     }
 </style>
