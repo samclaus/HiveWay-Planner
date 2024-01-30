@@ -35,7 +35,6 @@
 <button
     on:click
     style:color={color && colors[color]}
-    title={label}
     aria-label={label}
     aria-pressed={pressed}
     use:tooltip={{ content: label }}>
