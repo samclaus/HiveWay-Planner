@@ -26,9 +26,9 @@
 
     function onMapClick({ latlng }: any): void {
         coords.push(latlng);
+        line.addLatLng(latlng);
 
         if (coords.length > 1) {
-            line.setLatLngs(coords);
             map.addLayer(line);
         }
 
@@ -50,6 +50,24 @@
         map.removeLayer(line);
         map.removeLayer(previewLine);
     });
+
+    function onColorInput(ev: any): void {
+        console.log(ev.target.value);
+        line.setStyle({ color: ev.target.value });
+    }
+
+    function cancel(): void {
+        map.removeLayer(previewLine);
+        map.removeLayer(line);
+        line.setLatLngs([]);
+
+        coords.length = 0;
+        coords = coords; // for Svelte
+    }
+
+    function createLine(): void {
+
+    }
 </script>
 
 {#if coords.length < 1}
@@ -67,9 +85,31 @@
         </p>
     </div>
 {:else}
-    <ol>
-        {#each coords as { lat, lng }, i (i)}
-            <li>{lng}, {lat}</li>
-        {/each}
-    </ol>
+    <form on:submit|preventDefault={createLine}>
+        <h3>Create Polyline</h3>
+        <div class="form-fields">
+
+            <label>
+                Color
+                <input type="color" value="#000" on:input={onColorInput} />
+            </label>
+
+        </div>
+        <div class="form-actions">
+            <button type="button" on:click={cancel}>
+                Cancel
+            </button>
+            <button type="submit" class="filled">
+                Create Polyline
+            </button>
+        </div>
+    </form>
+    <details>
+        <summary>Coordinates ({ coords.length })</summary>
+        <ol>
+            {#each coords as { lat, lng }, i (i)}
+                <li>{lng}, {lat}</li>
+            {/each}
+        </ol>
+    </details>
 {/if}
