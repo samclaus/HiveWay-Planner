@@ -5,34 +5,115 @@
 
     export let map: L.Map;
 
-    function onMapClick({ latlng }: any): void {
-        // TODO
+    const polygon = new L.Polygon([], {
+        color: "#000",
+        opacity: 0.5,
+    });
+    const previewLine = new L.Polyline([], {
+        color: "#000",
+        opacity: 1,
+        dashArray: "10 10",
+    });
+
+    let coords: L.LatLng[] = [];
+
+    function onMapMousemove({ latlng }: any): void {
+        if (coords.length > 0) {
+            previewLine.setLatLngs([coords[coords.length - 1], latlng]);
+            map.addLayer(previewLine);
+        }
     }
 
+    function onMapClick({ latlng }: any): void {
+        coords.push(latlng);
+        polygon.addLatLng(latlng);
+
+        if (coords.length > 1) {
+            map.addLayer(polygon);
+        }
+
+        coords = coords; // for Svelte
+    }
+
+    function onMapMouseout(): void {
+        map.removeLayer(previewLine);
+    }
+
+    map.on("mousemove", onMapMousemove);
     map.on("click", onMapClick);
-    // TODO
+    map.on("mouseout", onMapMouseout);
 
     onDestroy((): void => {
-        // TODO
+        map.off("mousemove", onMapMousemove);
         map.off("click", onMapClick);
+        map.off("mouseout", onMapMousemove);
+        map.removeLayer(polygon);
+        map.removeLayer(previewLine);
     });
+
+    function onColorInput(ev: any): void {
+        polygon.setStyle({ color: ev.target.value });
+    }
+
+    function cancel(): void {
+        map.removeLayer(previewLine);
+        map.removeLayer(polygon);
+        polygon.setLatLngs([]);
+
+        coords.length = 0;
+        coords = coords; // for Svelte
+    }
+
+    function createPolygon(): void {
+
+    }
 </script>
 
-<div class="placeholder">
-    <Icon
-        name="polygon"
-        color="primary"
-        size={72} />
-    <h3>Polygon</h3>
-    <p>
-        Create/edit polygons on the map. Select 3 or more points on the
-        map to get started, and from there you can select more points or
-        use the tools that will appear here for more fine-grained editing
-        control.
-    </p>
-    <p>
-        Polygons may have 0 or more <em>holes</em> configured. Holes may
-        can be of any shape, and you have all of the ordinary shape
-        creation tools at your disposal to customize them.
-    </p>
-</div>
+{#if coords.length < 1}
+    <div class="placeholder">
+        <Icon
+            name="polygon"
+            color="primary"
+            size={72} />
+        <h3>Polygon</h3>
+        <p>
+            Create/edit polygons on the map. Select 3 or more points on the
+            map to get started, and from there you can select more points or
+            use the tools that will appear here for more fine-grained editing
+            control.
+        </p>
+        <p>
+            Polygons may have 0 or more <em>holes</em> configured. Holes are
+            also polygons, and you have all of the ordinary tools at your
+            disposal to customize them.
+        </p>
+    </div>
+{:else}
+    <form on:submit|preventDefault={createPolygon}>
+        <h3>Create Polyline</h3>
+        <div class="form-fields">
+
+            <label>
+                Color
+                <input type="color" value="#000" on:input={onColorInput} />
+            </label>
+
+        </div>
+        <div class="form-actions">
+            <button type="button" on:click={cancel}>
+                Cancel
+            </button>
+            <button type="submit" class="filled">
+                Create Polyline
+            </button>
+        </div>
+    </form>
+    <details>
+        <summary>Coordinates ({ coords.length })</summary>
+        <ol>
+            {#each coords as { lat, lng }, i (i)}
+                <li>{lng}, {lat}</li>
+            {/each}
+        </ol>
+    </details>
+{/if}

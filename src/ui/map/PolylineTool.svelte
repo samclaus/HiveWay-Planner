@@ -52,7 +52,6 @@
     });
 
     function onColorInput(ev: any): void {
-        console.log(ev.target.value);
         line.setStyle({ color: ev.target.value });
     }
 

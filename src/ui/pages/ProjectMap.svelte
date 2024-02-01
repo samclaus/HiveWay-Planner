@@ -5,7 +5,6 @@
     import { PROJECTS } from "../../state/projects";
     import { autofocus } from "../actions/autofocus";
     import { MAP_TOOLS, type MapTool } from "../map";
-    import Icon from "../widgets/Icon.svelte";
     import IconButton from "../widgets/IconButton.svelte";
 
     export let params: {
@@ -101,23 +100,11 @@
                 on:click={() => tool = "polygon"}
                 pressed={tool === "polygon"} />
             <IconButton
-                label="Ellipse"
-                icon="ellipse"
-                color={tool === "ellipse" ? "primary" : undefined}
-                on:click={() => tool = "ellipse"}
-                pressed={tool === "ellipse"} />
-            <IconButton
-                label="Equilateral polygon"
-                icon="shapes"
-                color={tool === "equi-poly" ? "primary" : undefined}
-                on:click={() => tool = "equi-poly"}
-                pressed={tool === "equi-poly"} />
-            <IconButton
-                label="Rectangle"
-                icon="rectangle"
-                color={tool === "rect" ? "primary" : undefined}
-                on:click={() => tool = "rect"}
-                pressed={tool === "rect"} />
+                label="Circle"
+                icon="circle"
+                color={tool === "circle" ? "primary" : undefined}
+                on:click={() => tool = "circle"}
+                pressed={tool === "circle"} />
         </div>
 
         <!--
