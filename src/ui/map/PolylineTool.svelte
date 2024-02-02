@@ -2,12 +2,20 @@
     import * as L from "leaflet-lite";
     import { onDestroy } from "svelte";
     import Icon from "../widgets/Icon.svelte";
+    import GeometryFields from "./GeometryFields.svelte";
+    import { defaultGeometryStyles } from "./core";
 
     export let map: L.Map;
 
+    let styles = defaultGeometryStyles();
+    styles.weight = 5;
+    styles.fill = false;
+
+    let desc = "";
+
     const line = new L.Polyline([], {
         color: "#000",
-        opacity: 0.5,
+        opacity: 0.7,
     });
     const previewLine = new L.Polyline([], {
         color: "#000",
@@ -16,6 +24,9 @@
     });
 
     let coords: L.LatLng[] = [];
+
+    $: line.setStyle(styles);
+    $: previewLine.setStyle({ weight: styles.weight });
 
     function onMapMousemove({ latlng }: any): void {
         if (coords.length > 0) {
@@ -51,10 +62,6 @@
         map.removeLayer(previewLine);
     });
 
-    function onColorInput(ev: any): void {
-        line.setStyle({ color: ev.target.value });
-    }
-
     function cancel(): void {
         map.removeLayer(previewLine);
         map.removeLayer(line);
@@ -88,10 +95,7 @@
         <h3>Create Polyline</h3>
         <div class="form-fields">
 
-            <label>
-                Color
-                <input type="color" value="#000" on:input={onColorInput} />
-            </label>
+            <GeometryFields bind:styles bind:desc strokeOnly />
 
         </div>
         <div class="form-actions">
@@ -103,12 +107,4 @@
             </button>
         </div>
     </form>
-    <details>
-        <summary>Coordinates ({ coords.length })</summary>
-        <ol>
-            {#each coords as { lat, lng }, i (i)}
-                <li>{lng}, {lat}</li>
-            {/each}
-        </ol>
-    </details>
 {/if}

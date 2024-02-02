@@ -2,18 +2,24 @@
     import * as L from "leaflet-lite";
     import { onDestroy } from "svelte";
     import Icon from "../widgets/Icon.svelte";
+    import GeometryFields from "./GeometryFields.svelte";
+    import { defaultGeometryStyles } from "./core";
 
     export let map: L.Map;
 
+    let styles = defaultGeometryStyles();
+    let desc = "";
+
     const circle = new L.Circle(new L.LatLng(0, 0), {
-        color: "#000",
-        fillColor: "#000",
+        ...styles,
+        interactive: false,
     });
 
     let center: L.LatLng | undefined;
-    let radiusMeters = 20;
+    let radiusMeters = 100;
 
     $: circle.setRadius(radiusMeters);
+    $: circle.setStyle(styles);
 
     function onMapClick({ latlng }: any): void {
         center = latlng as L.LatLng;
@@ -27,15 +33,6 @@
         map.removeLayer(circle);
         map.off("click", onMapClick);
     });
-
-    function onColorInput(ev: any): void {
-        const color = ev.target.value;
-
-        circle.setStyle({
-            color,
-            fillColor: color,
-        });
-    }
 
     function cancel(): void {
         map.removeLayer(circle);
@@ -57,10 +54,7 @@
                 <input type="number" bind:value={radiusMeters} step="1">
             </label>
 
-            <label>
-                Color
-                <input type="color" value="#000" on:input={onColorInput} />
-            </label>
+            <GeometryFields bind:styles bind:desc />
 
         </div>
         <div class="form-actions">

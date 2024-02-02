@@ -19,6 +19,7 @@
         {
             color: "#1976D2",
             radius: 3, // meters
+            weight: 1,
         },
     );
 

@@ -6,7 +6,7 @@
         type="checkbox"
         {required}
         bind:this={inputEl}
-        bind:value>
+        bind:checked={value}>
 
     <div class="label-text">
         {label}
