@@ -1,12 +1,12 @@
 <script lang="ts">
     import * as L from "leaflet-lite";
     import blueMarkerURL from "leaflet-lite/assets/marker.svg";
-    import { STOP_TYPES, StopType, WheelchairBoarding, type StopSpec } from "../../state/stops";
+    import { onDestroy } from "svelte";
+    import { STOP_TYPES, StopType, WheelchairBoarding, createStop, type StopSpec } from "../../state/project-features";
     import Icon from "../widgets/Icon.svelte";
     import Select from "../widgets/Select.svelte";
     import TextArea from "../widgets/TextArea.svelte";
     import TextField from "../widgets/TextField.svelte";
-    import { onDestroy } from "svelte";
 
     export let map: L.Map;
 
@@ -65,13 +65,19 @@
         map.removeLayer(marker);
     }
 
-    function createStop(): void {
-        
+    function submit(): void {
+        if (spec) {
+            // TODO: async handling w/ task system
+            createStop(spec).then(
+                cancel,
+                console.error,
+            );
+        }
     }
 </script>
 
 {#if spec}
-    <form on:submit|preventDefault={createStop}>
+    <form on:submit|preventDefault={submit}>
         <h3>Create Stop</h3>
         <div class="form-fields">
 

@@ -1,6 +1,7 @@
 <script lang="ts">
     import * as L from "leaflet-lite";
     import { onDestroy } from "svelte";
+    import { createPath } from "../../state/project-features";
     import Icon from "../widgets/Icon.svelte";
     import GeometryFields from "./GeometryFields.svelte";
     import { defaultGeometryStyles } from "./core";
@@ -69,8 +70,17 @@
         coords = coords; // for Svelte
     }
 
-    function createPolygon(): void {
-
+    function submit(): void {
+        // TODO: async handling w/ task system
+        createPath({
+            line: false,
+            coords: coords.flatMap(c => [c.lat, c.lng]),
+            description: desc,
+            styles,
+        }).then(
+            cancel,
+            console.error,
+        );
     }
 </script>
 
@@ -94,7 +104,7 @@
         </p>
     </div>
 {:else}
-    <form on:submit|preventDefault={createPolygon}>
+    <form on:submit|preventDefault={submit}>
         <h3>Create Polygon</h3>
         <div class="form-fields">
 

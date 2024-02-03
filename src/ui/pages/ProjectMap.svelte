@@ -2,9 +2,10 @@
     import * as L from "leaflet-lite";
     import "leaflet-lite/styles";
     import { onDestroy, onMount } from "svelte";
+    import { PROJECT_FEATURES, refreshProjectFeatures } from "../../state/project-features";
     import { PROJECTS } from "../../state/projects";
     import { autofocus } from "../actions/autofocus";
-    import { MAP_TOOLS, type MapTool } from "../map";
+    import { MAP_TOOLS, RenderCircle, RenderPath, RenderStop, type MapTool } from "../map";
     import IconButton from "../widgets/IconButton.svelte";
 
     export let params: {
@@ -20,6 +21,8 @@
 
     $: projectName = $PROJECTS && PROJECTS.get(params.id)?.name || params.id;
     $: toolComp = MAP_TOOLS[tool];
+
+    refreshProjectFeatures();
 
     onMount((): void => {
         map = new L.Map(mapContainer, new L.SVG({ padding: 2 }), {
@@ -62,7 +65,22 @@
     <div
         class="map"
         style:cursor={tool !== "select" ? "crosshair" : undefined}
-        bind:this={mapContainer} />
+        bind:this={mapContainer}>
+
+        {#if map}
+            {@const features = $PROJECT_FEATURES}
+            {#each features.stops as stop (stop.id)}
+                <RenderStop {map} {stop} />
+            {/each}
+            {#each features.paths as path (path.id)}
+                <RenderPath {map} {path} />
+            {/each}
+            {#each features.circles as circle (circle.id)}
+                <RenderCircle {map} {circle} />
+            {/each}
+        {/if}
+
+    </div>
     <div class="map-tools">
         <div class="toolbar sticky">
             <h2 class="flex-grow">{projectName}</h2>

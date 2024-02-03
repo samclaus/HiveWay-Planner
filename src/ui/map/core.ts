@@ -1,20 +1,12 @@
 import * as L from "leaflet-lite";
 import { hexEncode } from "../../encoding";
 import { insecureRandomInt } from "../../lib/random";
+import type { GeometryStyles } from "../../state/project-features";
 
 export interface MapElem {
     layer: L.Layer;
     name: string;
     type: "stop" | "polyline" | "polygon";
-}
-
-export interface GeometryStyles {
-    stroke: boolean;
-    color: string;
-    weight: number;
-    fill: boolean;
-    fillColor: string | undefined;
-    fillOpacity: number;
 }
 
 export function defaultGeometryStyles(): GeometryStyles {

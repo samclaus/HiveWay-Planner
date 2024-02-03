@@ -1,6 +1,7 @@
 <script lang="ts">
     import * as L from "leaflet-lite";
     import { onDestroy } from "svelte";
+    import { createCircle } from "../../state/project-features";
     import Icon from "../widgets/Icon.svelte";
     import GeometryFields from "./GeometryFields.svelte";
     import { defaultGeometryStyles } from "./core";
@@ -39,13 +40,26 @@
         center = undefined;
     }
 
-    function createCircle(): void {
-
+    function submit(): void {
+        if (!center) {
+            return;
+        }
+    
+        // TODO: async handling w/ task system
+        createCircle({
+            center: [center.lat, center.lng],
+            radius_meters: radiusMeters,
+            description: desc,
+            styles,
+        }).then(
+            cancel,
+            console.error,
+        );
     }
 </script>
 
 {#if center}
-    <form on:submit|preventDefault={createCircle}>
+    <form on:submit|preventDefault={submit}>
         <h3>Create Circle</h3>
         <div class="form-fields">
 
