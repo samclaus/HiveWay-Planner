@@ -1,12 +1,23 @@
 <script lang="ts">
     import { MY_INFO$ } from "../../state/session";
-    import { USERS, RANK_NAMES, deleteUser } from "../../state/users";
+    import { USERS, RANK_NAMES, deleteUser, userName } from "../../state/users";
     import Icon from "../widgets/Icon.svelte";
     import IconButton from "../widgets/IconButton.svelte";
+    import { confirm } from "../widgets/ModalContainer.svelte";
 
     const status$ = USERS.status$;
 
     USERS.forceRefresh();
+
+    function showDeleteUI(userID: string): void {
+        confirm(
+            `Delete ${userName(userID)}?`,
+            "Deleting a user is a permanent action and cannot be undone.",
+            "Delete User",
+        ).then(
+            () => deleteUser(userID),
+        );
+    }
 </script>
 
 <h1>Users</h1>
@@ -37,7 +48,7 @@
                     label="Delete"
                     icon="delete"
                     color="warn"
-                    on:click={() => deleteUser(user.id)} />
+                    on:click={() => showDeleteUI(user.id)} />
             {/if}
         </div>
     </li>

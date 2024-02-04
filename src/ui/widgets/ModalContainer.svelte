@@ -3,6 +3,7 @@
     import { get, writable } from "svelte/store";
     import { type TransitionConfig } from "svelte/transition";
     import { Deferred } from "../../lib/async-util";
+    import ConfirmationModal from "./ConfirmationModal.svelte";
 
     /**
      * Indicates that the user canceled a modal. This could be by clicking
@@ -80,6 +81,14 @@
                 transform: translateY(${50 * u}px) scale(${t});
             `,
         };
+    }
+
+    export function confirm(
+        title: string,
+        body: string,
+        confirmLabel: string,
+    ): Promise<void> {
+        return show(ConfirmationModal, { title, body, confirmLabel });
     }
 </script>
 
