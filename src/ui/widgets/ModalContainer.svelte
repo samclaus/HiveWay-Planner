@@ -147,7 +147,7 @@
     }
 
     .backdrop.visible {
-        opacity: .5;
+        opacity: .75;
         pointer-events: all;
     }
 
@@ -169,7 +169,7 @@
         padding: 0 12px;
 
         background-color: white;
-        border: 1px solid rgb(0 0 0 / .12);
+        border: 2px solid #000;
         border-radius: 8px;
 
         pointer-events: all;
