@@ -108,6 +108,12 @@
     function clickTarget(ev: FocusEvent): void {
         (ev.target as any).click();
     }
+
+    function handleModalKeydown(ev: KeyboardEvent): void {
+        if (ev.key === "Tab" && ev.shiftKey) {
+            ev.preventDefault();
+        }
+    }
 </script>
 
 <div
@@ -125,7 +131,12 @@
 
     {#if $current}
         <div class="modal-scroller">
-            <dialog id="hw-modal" open transition:slideScaleFade>
+            <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+            <dialog
+                id="hw-modal"
+                open
+                transition:slideScaleFade
+                on:keydown|self={handleModalKeydown}>
                 <svelte:component this={$current[0]} {...$current[1]} />
             </dialog>
             <a aria-hidden="true" href="#hw-modal" on:focus={clickTarget}>
@@ -182,5 +193,9 @@
 
         transform-origin: center;
         isolation: isolate;
+    }
+
+    dialog:focus {
+        outline: none;
     }
 </style>
