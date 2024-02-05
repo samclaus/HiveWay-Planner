@@ -104,6 +104,10 @@
             cancel();
         }
     }
+
+    function clickTarget(ev: FocusEvent): void {
+        (ev.target as any).click();
+    }
 </script>
 
 <div
@@ -121,9 +125,10 @@
 
     {#if $current}
         <div class="modal-scroller">
-            <dialog open transition:slideScaleFade>
+            <dialog id="hw-modal" open transition:slideScaleFade>
                 <svelte:component this={$current[0]} {...$current[1]} />
             </dialog>
+            <a aria-hidden="true" href="#hw-modal" on:focus={clickTarget}>
         </div>
     {/if}
 
