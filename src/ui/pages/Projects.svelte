@@ -1,16 +1,28 @@
 <script lang="ts">
-    import { PROJECTS, deleteProject } from "../../state/projects";
+    import { PROJECTS, deleteProject, type ProjectInfo } from "../../state/projects";
     import { USERS, userName } from "../../state/users";
     import { autofocus } from "../actions/autofocus";
     import { cardLink } from "../actions/card-link";
     import ProjectSave from "../modals/ProjectSave.svelte";
     import Icon from "../widgets/Icon.svelte";
     import IconButton from "../widgets/IconButton.svelte";
-    import { show } from "../widgets/ModalContainer.svelte";
+    import { confirm, show } from "../widgets/ModalContainer.svelte";
 
     const status$ = PROJECTS.status$;
 
     PROJECTS.forceRefresh();
+
+    function showDeleteUI(proj: ProjectInfo): void {
+        confirm(
+            `Delete ${proj.name}?`,
+            "This will not only delete the project metadata, but all " +
+            "stops, schedule information, and map geometry associated " +
+            "with it. Please be sure you want to proceed.",
+            "Delete Project",
+        ).then(
+            () => deleteProject(proj.id),
+        );
+    }
 </script>
 
 <h1>Projects</h1>
@@ -61,7 +73,7 @@
                 label="Delete"
                 icon="delete"
                 color="warn"
-                on:click={() => deleteProject(proj.id)} />
+                on:click={() => showDeleteUI(proj)} />
         </div>
     </li>
     {/each}
