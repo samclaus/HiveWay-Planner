@@ -50,7 +50,7 @@ export interface GeometryStyles {
 export interface PathSpec {
     line: boolean;
     coords: number[];
-    description: string;
+    name: string;
     styles: GeometryStyles;
 }
 
@@ -61,7 +61,7 @@ export interface PathInfo extends PathSpec {
 export interface CircleSpec {
     center: [number, number];
     radius_meters: number;
-    description: string;
+    name: string;
     styles: GeometryStyles;
 }
 

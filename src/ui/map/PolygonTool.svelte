@@ -8,8 +8,8 @@
 
     export let map: L.Map;
 
+    let name = "";
     let styles = defaultGeometryStyles();
-    let desc = "";
 
     const polygon = new L.Polygon([], { opacity: 1 });
     const previewLine = new L.Polyline([], {
@@ -75,7 +75,7 @@
         createPath({
             line: false,
             coords: coords.flatMap(c => [c.lat, c.lng]),
-            description: desc,
+            name,
             styles,
         }).then(
             cancel,
@@ -108,7 +108,7 @@
         <h3>Create Polygon</h3>
         <div class="form-fields">
 
-            <GeometryFields bind:styles bind:desc />
+            <GeometryFields bind:name bind:styles />
 
         </div>
         <div class="form-actions">

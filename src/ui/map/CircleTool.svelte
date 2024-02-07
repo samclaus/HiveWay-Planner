@@ -8,8 +8,8 @@
 
     export let map: L.Map;
 
+    let name = "";
     let styles = defaultGeometryStyles();
-    let desc = "";
 
     const circle = new L.Circle(new L.LatLng(0, 0), {
         ...styles,
@@ -49,7 +49,7 @@
         createCircle({
             center: [center.lat, center.lng],
             radius_meters: radiusMeters,
-            description: desc,
+            name,
             styles,
         }).then(
             cancel,
@@ -68,7 +68,7 @@
                 <input type="number" bind:value={radiusMeters} step="1">
             </label>
 
-            <GeometryFields bind:styles bind:desc />
+            <GeometryFields bind:name bind:styles />
 
         </div>
         <div class="form-actions">

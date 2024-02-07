@@ -44,7 +44,7 @@
         {/each}
         {#each $PROJECT_FEATURES.paths as path (path.id)}
             <li>
-                {path.description}
+                {path.name}
                 <IconButton
                     label="Delete"
                     icon="delete"
@@ -54,7 +54,7 @@
         {/each}
         {#each $PROJECT_FEATURES.circles as circle (circle.id)}
             <li>
-                {circle.description}
+                {circle.name}
                 <IconButton
                     label="Delete"
                     icon="delete"

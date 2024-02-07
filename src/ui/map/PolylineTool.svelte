@@ -8,11 +8,10 @@
 
     export let map: L.Map;
 
+    let name = "";
     let styles = defaultGeometryStyles();
     styles.weight = 5;
     styles.fill = false;
-
-    let desc = "";
 
     const line = new L.Polyline([], {
         color: "#000",
@@ -77,7 +76,7 @@
         createPath({
             line: true,
             coords: coords.flatMap(c => [c.lat, c.lng]),
-            description: desc,
+            name,
             styles,
         }).then(
             cancel,
@@ -105,7 +104,7 @@
         <h3>Create Polyline</h3>
         <div class="form-fields">
 
-            <GeometryFields bind:styles bind:desc strokeOnly />
+            <GeometryFields bind:name bind:styles strokeOnly />
 
         </div>
         <div class="form-actions">

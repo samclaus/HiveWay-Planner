@@ -1,10 +1,10 @@
 <script lang="ts">
+    import type { GeometryStyles } from "../../state/project-features";
     import Checkbox from "../widgets/Checkbox.svelte";
-    import TextArea from "../widgets/TextArea.svelte";
-    import type { GeometryStyles } from "./core";
+    import TextField from "../widgets/TextField.svelte";
 
+    export let name: string;
     export let styles: GeometryStyles;
-    export let desc: string;
     export let strokeOnly = false;
 
     let singleColor = true;
@@ -17,11 +17,11 @@
     }
 </script>
     
-<TextArea
-    label="Description"
+<TextField
+    label="Name"
     hint="What does this geometry represent?"
     required
-    bind:value={desc} />
+    bind:value={name} />
 
 {#if !strokeOnly}
     <Checkbox label="Stroke/fill using same color" bind:value={singleColor} />
