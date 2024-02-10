@@ -26,15 +26,9 @@
 }
 
 h1 {
-    text-align: center;
     font-size: 3rem;
     font-weight: 800;
-    margin: .5em 0;
-
-    background: linear-gradient(20deg, #00E676, #00E676 30%, #00B0FF 60%, #00B0FF 79%);
-    background-clip: border-box;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    margin: 0 0 .5em;
 }
 
 h2 {
@@ -111,4 +105,8 @@ button.filled.warn {
 button.filled:hover, button.filled:focus {
     border-color: #00E676;
     color: #00E676;
+}
+
+.padding-heavy {
+    padding: 48px;
 }

@@ -113,6 +113,14 @@
 		padding: 32px 24px;
 	}
 
+	h1 {
+		text-align: center;
+		background: linear-gradient(20deg, #00E676, #00E676 30%, #00B0FF 60%, #00B0FF 79%);
+		background-clip: border-box;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+
 	.error-banner {
 		padding: 12px;
 		background-color: rgba(211, 47, 47, .3);

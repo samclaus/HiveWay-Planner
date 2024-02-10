@@ -1,19 +1,21 @@
-<h2>Request/Response Debugging</h2>
-<form on:submit|preventDefault={sendRequest}>
-    <h3>Request</h3>
-    <div class="form-fields">
-        <TextField label="Request Type" bind:value={requestType} autofocus />
-        <TextField label="Request JSON" bind:value={requestJSON} />
-    </div>
-    <div class="form-actions">
-        <button type="button" on:click={benchmark}>Benchmark</button>
-        <button type="submit" class="filled">Send request</button>
-    </div>
-</form>
-<section class="response-container">
-    <h3>Response</h3>
-    <pre>{responseText}</pre>
-</section>
+<main class="padding-heavy">
+    <h1>Request/Response Debugging</h1>
+    <form on:submit|preventDefault={sendRequest}>
+        <h3>Request</h3>
+        <div class="form-fields">
+            <TextField label="Request Type" bind:value={requestType} autofocus />
+            <TextField label="Request JSON" bind:value={requestJSON} />
+        </div>
+        <div class="form-actions">
+            <button type="button" on:click={benchmark}>Benchmark</button>
+            <button type="submit" class="filled">Send request</button>
+        </div>
+    </form>
+    <section class="response-container">
+        <h3>Response</h3>
+        <pre>{responseText}</pre>
+    </section>
+</main>
 
 <script lang="ts">
 import { decode, encode } from "msgpack-ts";

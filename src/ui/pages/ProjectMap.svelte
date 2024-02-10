@@ -4,7 +4,7 @@
     import { onDestroy, onMount } from "svelte";
     import { PROJECT_FEATURES, refreshProjectFeatures } from "../../state/project-features";
     import { PROJECTS } from "../../state/projects";
-    import { autofocus } from "../actions/autofocus";
+    import { BREADCRUMBS } from "../Breadcrumbs.svelte";
     import { MAP_TOOLS, RenderCircle, RenderPath, RenderStop, type MapTool } from "../map";
     import IconButton from "../widgets/IconButton.svelte";
 
@@ -19,7 +19,17 @@
 
     let tool: MapTool = "select";
 
-    $: projectName = $PROJECTS && PROJECTS.get(params.id)?.name || params.id;
+    $: {
+        const
+            id = params.id,
+            name = $PROJECTS && PROJECTS.get(id)?.name || id;
+
+        $BREADCRUMBS = [
+            ["Projects", "/projects"],
+            [name, `/projects/${id}`],
+            ["Map", `/projects/${id}/map`],
+        ];
+    }
     $: toolComp = MAP_TOOLS[tool];
 
     refreshProjectFeatures();
@@ -61,7 +71,7 @@
     });
 </script>
 
-<div class="layout">
+<main>
     <div
         class="map"
         style:cursor={tool !== "select" ? "crosshair" : undefined}
@@ -82,16 +92,10 @@
 
     </div>
     <div class="map-tools">
-        <div class="toolbar sticky">
-            <h2 class="flex-grow">{projectName}</h2>
-            <div class="select-wrapper">
-                <select aria-label="Project navigation" use:autofocus>
-                    <option>Edit</option>
-                    <option>Collaborators</option>
-                    <option>Comments</option>
-                </select>
-            </div>
-        </div>
+        <!-- TODO -->
+        <!-- <div class="toolbar sticky">
+            <h2>Edit Geographic Features</h2>
+        </div> -->
         <div class="toolbar secondary" role="toolbar">
             <IconButton
                 label="Select"
@@ -133,12 +137,10 @@
             <svelte:component this={toolComp} {map} />
         {/if}
     </div>
-</div>
+</main>
 
 <style>
-    .layout {
-        /* TODO */
-        height: 100%;
+    main {
         display: flex;
     }
 
