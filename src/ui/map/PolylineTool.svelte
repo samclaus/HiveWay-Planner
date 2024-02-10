@@ -100,8 +100,10 @@
         </p>
     </div>
 {:else}
+    <div class="toolbar sticky">
+        <h2>Creating Polyline</h2>
+    </div>
     <form on:submit|preventDefault={submit}>
-        <h3>Create Polyline</h3>
         <div class="form-fields">
 
             <GeometryFields bind:name bind:styles strokeOnly />

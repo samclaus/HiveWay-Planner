@@ -77,8 +77,10 @@
 </script>
 
 {#if spec}
+    <div class="toolbar sticky">
+        <h2>Creating Stop</h2>
+    </div>
     <form on:submit|preventDefault={submit}>
-        <h3>Create Stop</h3>
         <div class="form-fields">
 
             <TextField

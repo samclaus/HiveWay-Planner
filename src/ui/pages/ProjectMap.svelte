@@ -92,10 +92,6 @@
 
     </div>
     <div class="map-tools">
-        <!-- TODO -->
-        <!-- <div class="toolbar sticky">
-            <h2>Edit Geographic Features</h2>
-        </div> -->
         <div class="toolbar secondary" role="toolbar">
             <IconButton
                 label="Select"
@@ -157,30 +153,5 @@
         background-color: #fff;
         contain: strict;
         overflow-y: auto;
-    }
-
-    h2 {
-        margin: 0;
-    }
-
-    .toolbar {
-        padding: 12px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        min-height: 48px;
-    }
-
-    .toolbar.sticky {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-        background-color: #fff;
-    }
-
-    .toolbar.secondary {
-        border: 1px solid rgba(0, 0, 0, .12);
-        border-width: 1px 0;
-        background-color: #eee;
     }
 </style>

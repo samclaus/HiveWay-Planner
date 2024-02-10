@@ -59,8 +59,10 @@
 </script>
 
 {#if center}
+    <div class="toolbar sticky">
+        <h2>Creating Circle</h2>
+    </div>
     <form on:submit|preventDefault={submit}>
-        <h3>Create Circle</h3>
         <div class="form-fields">
 
             <label>
